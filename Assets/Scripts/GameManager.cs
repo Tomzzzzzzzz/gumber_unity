@@ -6,7 +6,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
+    
+    [HideInInspector]
+    public string previousZone;
     private void Awake()
     {
         if (instance != null && instance != this)
