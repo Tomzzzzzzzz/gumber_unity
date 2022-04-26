@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene2.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/CombatScene2.unity
+    path: Assets/Scenes/CombatScene.unity
     guid: 6a098e0d21ff09f46a31b78795e5c2ea
   - enabled: 1
     path: Assets/Scenes/CharacterSelection.unity

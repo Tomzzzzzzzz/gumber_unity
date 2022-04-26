@@ -18,6 +18,7 @@ public class CombatManager : MonoBehaviour
     private void Start()
     {
         ChangeState(CombatState.GenerateGrid);
+        UnitManager.instance.Coups = 0;
     }
 
     public void ChangeState(CombatState newstate)
@@ -59,19 +60,43 @@ public class CombatManager : MonoBehaviour
 
     private void HandleHeroesTurn()
     {
-        throw new NotImplementedException();
+        Debug.Log("Appel HandleHeroesTurn");
+        UnitManager.instance.Coups = 0;
+        // Partie logique déjà gérer par OnMouseDown dans Tile.cs !
+
         // voir à 8:20 https://www.youtube.com/watch?v=4I0vonyqMi8
         // boutons activés uniquement lorsque c'est le tour du joueur
     }
     
     private void HandleEnemiesTurn()
     {
-        throw new NotImplementedException();
+        Debug.Log("mec !cool passe à l'attaque !!");
+        UnitManager.instance.Coups = 0;
+
+        //tant que IA non implémentée
+        ChangeState(CombatState.Decide);
     }
     
     private void HandleDecide() //après chaque tour, vérifie si la partie est terminée ou non
     {
-        throw new NotImplementedException();
+        if (true)
+        {
+            ChangeState(CombatState.HeroesTurn);
+            return;
+        }
+        else
+        {
+            if (true)
+            {
+                ChangeState(CombatState.Victory);
+                return;
+            }
+            else
+            {
+                ChangeState(CombatState.Lose);
+                return;
+            }
+        }
     }
     
     private void HandleVictory()
@@ -87,12 +112,12 @@ public class CombatManager : MonoBehaviour
 
 public enum CombatState
 {
-    GenerateGrid,
-    SpawnHeroes,
-    SpawnEnemies,
-    HeroesTurn,
-    EnemiesTurn,
-    Decide,
-    Victory,
-    Lose
+    GenerateGrid = 0,
+    SpawnHeroes = 1,
+    SpawnEnemies = 2,
+    HeroesTurn = 3,
+    EnemiesTurn = 4,
+    Decide = 5,
+    Victory = 6,
+    Lose = 7
 }
