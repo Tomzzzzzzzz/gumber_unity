@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/*
+
 [CreateAssetMenu(fileName = "item", menuName = "ScriptableObject/Item", order = 1)]
 
 public class Items : ScriptableObject
@@ -10,7 +10,7 @@ public class Items : ScriptableObject
     public string description;
     public Sprite icon;
     public int amount, goldToGive, amountToHeal;
-    public bool isStackable
+    public bool isStackable;
 
     [System.Serializable]
 
@@ -21,4 +21,4 @@ public class Items : ScriptableObject
 
     public Type type;
 
-}*/
+}

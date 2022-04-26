@@ -15,14 +15,37 @@ public class PNJ : MonoBehaviour
 
     HUDManager manager => HUDManager.instance;
 
+    public QuestSO quest;
+
     private void Update()
     {
+        if (isOndial)
+        {
+            Time.timeScale = 0f;
+        }
         if (Input.GetKeyDown(KeyCode.E) && canDial)
         {
-            StartDialogue();
-            manager.continueButton.GetComponent<Button>().onClick.RemoveAllListeners();
-            manager.continueButton.GetComponent<Button>().onClick.AddListener( delegate {NextLine(); });
-            Time.timeScale = 0f;
+            if (quest != null && quest.statut == QuestSO.Statut.none)
+            {
+                StartDialogue(quest.sentences);
+            }
+            else if (quest != null && quest.statut == QuestSO.Statut.accepter && quest.actualAmount < quest.amountToFind)
+            {
+                StartDialogue(quest.InprogressSentence);
+            } 
+            else if (quest != null && quest.statut == QuestSO.Statut.accepter && quest.actualAmount == quest.amountToFind)
+            {
+                StartDialogue(quest.completeSentence);
+                quest.statut = QuestSO.Statut.complete;
+            } 
+            else if (quest != null && quest.statut == QuestSO.Statut.complete)
+            {
+                StartDialogue(quest.afterQuestSentence);
+            } 
+            else if (quest == null)
+            {
+                StartDialogue(sentences);
+            }
         }
         if (!(isOndial) && PauseMenu.GameIsPaused == false)
         {
@@ -30,11 +53,13 @@ public class PNJ : MonoBehaviour
         }
     }
 
-    public void StartDialogue()
+    public void StartDialogue(string[] sentence)
     {
         manager.dialogueHolder.SetActive(true);
         isOndial = true;
-        TypingText(sentences);
+        TypingText(sentence);
+        manager.continueButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        manager.continueButton.GetComponent<Button>().onClick.AddListener( delegate {NextLine(sentence); });
     }
 
     void TypingText(string[] sentence)
@@ -51,19 +76,19 @@ public class PNJ : MonoBehaviour
         }
     }
 
-    public void NextLine()
+    public void NextLine(string[] sentence)
     {
         manager.continueButton.SetActive(false);
 
-        if (isOndial && index < sentences.Length - 1)
+        if (isOndial && index < sentence.Length - 1)
         {
             index++;
             manager.textDisplay.text = "";
-            TypingText(sentences);
+            TypingText(sentence);
         }
         else
         {
-            if (isOndial && index == sentences.Length -1)
+            if (isOndial && index == sentence.Length -1)
             {
                 isOndial = false;
                 index = 0;
