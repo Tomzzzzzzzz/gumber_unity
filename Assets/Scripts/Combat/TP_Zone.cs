@@ -19,10 +19,12 @@ public class TP_Zone : MonoBehaviour
     }
     private void Update()
     {
+        if (GameManager.instance == null) Debug.Log("NUUUUUUUUUUUUUUUUUUUUUUUUL");
         if (Input.GetKeyDown(KeyCode.E) && col)
         {
+            Debug.Log("trying to load map...");
+            GameManager.instance.previousZone = actualZone;
             SceneManager.LoadScene(nextZone);
-            CombatManager.instance.PreviousScene = actualZone;
         }
             
     }
