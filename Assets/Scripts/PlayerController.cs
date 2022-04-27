@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayerController : MonoBehaviour
+using Mirror;
+public class PlayerController : NetworkBehaviour
 {
     [Header("Component")]
     Rigidbody2D rb;
@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public int currentHealth;
     public static int money;
     public /*static ?*/ int xp;
+
+    private float litmitSpeed = 0.7f;
 
     public static PlayerController instance;
 
@@ -39,6 +41,11 @@ public class PlayerController : MonoBehaviour
             Load();
         }
         UpdateCharacter(selectedOption);
+
+        if(isLocalPlayer)
+        {
+            Camera.main.GetComponent<CameraFollow>().SetTarget(gameObject.transform);
+        }
     }
 
     // Update is called once per frame
@@ -54,11 +61,15 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        float x = Input.GetAxisRaw("Horizontal") * moveSpeed * Time.fixedDeltaTime;
-        float y = Input.GetAxisRaw("Vertical") * moveSpeed * Time.fixedDeltaTime;
+        if (isLocalPlayer)
+        {
+            float x = Input.GetAxisRaw("Horizontal") * moveSpeed * Time.fixedDeltaTime;
+            float y = Input.GetAxisRaw("Vertical") * moveSpeed * Time.fixedDeltaTime;
 
-        rb.velocity = new Vector2(x,y);
-        rb.velocity.Normalize();
+            rb.velocity = new Vector2(x,y);
+            rb.velocity.Normalize();
+        }
+        
     }
 
     //
