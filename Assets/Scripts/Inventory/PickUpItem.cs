@@ -17,8 +17,6 @@ public class PickUpItem : MonoBehaviour
                     item.actualAmount++;
                 }
             }
-
-            InventoryManager.instance.inventory.Add(item);
             Destroy(gameObject);
         }
     }

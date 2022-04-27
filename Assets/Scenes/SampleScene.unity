@@ -105937,7 +105937,6 @@ GameObject:
   - component: {fileID: 965996280}
   - component: {fileID: 965996278}
   - component: {fileID: 965996277}
-  - component: {fileID: 965996281}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -105957,8 +105956,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cffb6b49fed25d5458d71b03731fcec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   map: {fileID: 295292057}
   movementSpeed: 5
 --- !u!70 &965996276
@@ -106040,8 +106037,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f29b57ebe4dbcb43ae44d29cd3abfaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   moveSpeed: 0
   maxHealth: 0
   currentHealth: 0
@@ -106083,23 +106078,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &965996281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965996274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 3056451647
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!1001 &966735984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110545,7 +110523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -1018.87476}
+  m_AnchoredPosition: {x: -0.000030517578, y: 7395.9585}
   m_SizeDelta: {x: -0.0028, y: 2037.7494}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1609620926
@@ -111911,8 +111889,8 @@ RectTransform:
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 577.5, y: 262}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1917709859
@@ -112125,7 +112103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1949201720
 MonoBehaviour:
   m_ObjectHideFlags: 0

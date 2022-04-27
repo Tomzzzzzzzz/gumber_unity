@@ -8,12 +8,17 @@ public class HUDManager : MonoBehaviour
 {
     public static HUDManager instance;
 
-    public GameObject dialogueHolder, continueButton;
-    public TextMeshProUGUI nameDisplay, textDisplay;
+    public GameObject dialogueHolder, continueButton, choice1, choice2;
+    public TextMeshProUGUI nameDisplay, textDisplay, moneyText;
 
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Update()
+    {
+        moneyText.text = PlayerController.instance.money.ToString();
     }
 }

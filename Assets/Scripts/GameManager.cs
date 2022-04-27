@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        previousZone = "";
+        
     }
 
     // Update is called once per frame

@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
-public class PlayerController : NetworkBehaviour
+
+public class PlayerController : MonoBehaviour
 {
     [Header("Component")]
     Rigidbody2D rb;
@@ -15,22 +15,14 @@ public class PlayerController : NetworkBehaviour
     float moveSpeed;
     public int maxHealth;
     public int currentHealth;
-    public static int money;
+    public int money;
     public /*static ?*/ int xp;
-
-    private float litmitSpeed = 0.7f;
 
     public static PlayerController instance;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
-            Destroy(this.gameObject);
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
+        instance = this;
     }
 
     // Start is called before the first frame update
@@ -47,11 +39,6 @@ public class PlayerController : NetworkBehaviour
             Load();
         }
         UpdateCharacter(selectedOption);
-
-        if(isLocalPlayer)
-        {
-            Camera.main.GetComponent<CameraFollow>().SetTarget(gameObject.transform);
-        }
     }
 
     // Update is called once per frame
@@ -67,15 +54,11 @@ public class PlayerController : NetworkBehaviour
 
     void Move()
     {
-        if (isLocalPlayer)
-        {
-            float x = Input.GetAxisRaw("Horizontal") * moveSpeed * Time.fixedDeltaTime;
-            float y = Input.GetAxisRaw("Vertical") * moveSpeed * Time.fixedDeltaTime;
+        float x = Input.GetAxisRaw("Horizontal") * moveSpeed * Time.fixedDeltaTime;
+        float y = Input.GetAxisRaw("Vertical") * moveSpeed * Time.fixedDeltaTime;
 
-            rb.velocity = new Vector2(x,y);
-            rb.velocity.Normalize();
-        }
-        
+        rb.velocity = new Vector2(x,y);
+        rb.velocity.Normalize();
     }
 
     //

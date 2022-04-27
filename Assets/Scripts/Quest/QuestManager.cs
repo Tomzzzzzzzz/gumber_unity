@@ -23,6 +23,7 @@ public class QuestManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        panelQuest.SetActive(false);
         for (int i = 0; i < allQuest.Count; i++)
         {
             allQuest[i].id = i;
@@ -33,9 +34,8 @@ public class QuestManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && !panelQuest.activeInHierarchy)
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            Debug.Log("ccc");
             panelQuest.SetActive(true);
 
             if (parent.transform.childCount > 0)
@@ -58,7 +58,7 @@ public class QuestManager : MonoBehaviour
                         TextMeshProUGUI title = slot.transform.Find("TitleQuest").GetComponent<TextMeshProUGUI>();
                         title.text = allQuest[i].title;
 
-                        TextMeshProUGUI statut = slot.transform.Find("StatutQuest").GetComponent<TextMeshProUGUI>();
+                        TextMeshProUGUI statut = slot.transform.Find("Statut").GetComponent<TextMeshProUGUI>();
                         statut.text = "(" + allQuest[i].statut + ")";
 
                         slot.GetComponent<QuestID>().questId = allQuest[i].id;
@@ -71,10 +71,10 @@ public class QuestManager : MonoBehaviour
                             TextMeshProUGUI description = descriptionPanel.transform.Find("DescriptionQuest").GetComponent<TextMeshProUGUI>();
                             description.text = allQuest[i].description;
 
-                            TextMeshProUGUI objectif = descriptionPanel.transform.Find("ObjectifQuest").GetComponent<TextMeshProUGUI>();
+                            TextMeshProUGUI objectif = descriptionPanel.transform.Find("Objectif").GetComponent<TextMeshProUGUI>();
                             objectif.text = "Objectif : " + allQuest[i].actualAmount + "/" + allQuest[i].amountToFind;
 
-                            TextMeshProUGUI recompense = descriptionPanel.transform.Find("RecompenseQuest").GetComponent<TextMeshProUGUI>();
+                            TextMeshProUGUI recompense = descriptionPanel.transform.Find("Recompense").GetComponent<TextMeshProUGUI>();
                             recompense.text = "Récompense : " + allQuest[i].goldToGive;
 
                             firstQuest = false;
@@ -83,7 +83,7 @@ public class QuestManager : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.J) && panelQuest.activeInHierarchy)
+        else if (Input.GetKeyDown(KeyCode.J))
         {
             panelQuest.SetActive(false);
         }
@@ -97,10 +97,10 @@ public class QuestManager : MonoBehaviour
         TextMeshProUGUI description = descriptionPanel.transform.Find("DescriptionQuest").GetComponent<TextMeshProUGUI>();
         description.text = allQuest[i].description;
 
-        TextMeshProUGUI objectif = descriptionPanel.transform.Find("ObjectifQuest").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI objectif = descriptionPanel.transform.Find("Objectif").GetComponent<TextMeshProUGUI>();
         objectif.text = "Objectif : " + allQuest[i].actualAmount + "/" + allQuest[i].amountToFind;
 
-        TextMeshProUGUI recompense = descriptionPanel.transform.Find("RecompenseQuest").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI recompense = descriptionPanel.transform.Find("Recompense").GetComponent<TextMeshProUGUI>();
         recompense.text = "Récompense : " + allQuest[i].goldToGive;
 
     }

@@ -23,9 +23,8 @@ public abstract class Tile : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (PauseMenu.GameIsPaused) return;
         _highlight.SetActive(true);
-         MenuManager.instance.ShowTileInfo(this);
+        MenuManager.instance.ShowTileInfo(this);
     }
     
     void OnMouseExit()
@@ -36,7 +35,6 @@ public abstract class Tile : MonoBehaviour
 
     void OnMouseDown() // Dans cette fonction qu'on peut gérer l'affichage de la portée des coups par exemple
     {
-        if (PauseMenu.GameIsPaused) return;
         if(CombatManager.instance.state != CombatState.HeroesTurn || UnitManager.instance.Coups == 2) return;
 
         if (OccupiedUnit != null)

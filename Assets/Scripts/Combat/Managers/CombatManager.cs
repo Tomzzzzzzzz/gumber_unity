@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager instance;
+
+    public string PreviousScene; // Permet de retourner à la scène précédente à la fin du combat
     public CombatState state;
     public static event Action<CombatState> OnCombatStateChanged;
     [HideInInspector] public int EnemiesAlive;
-    [HideInInspector] private bool isWaiting;
-    [HideInInspector] private float TimeCounter;
     void Awake()
     {
         instance = this;
@@ -21,21 +21,8 @@ public class CombatManager : MonoBehaviour
     {
         ChangeState(CombatState.GenerateGrid);
         UnitManager.instance.Coups = 0;
-        TimeCounter = 0f;
     }
 
-    private void Update()
-    {
-        if (isWaiting){
-            Debug.Log($"Temps = {TimeCounter}");
-            if (TimeCounter >= 5f) {
-                TimeCounter = 0f;
-                isWaiting = false;
-                ChangeScene();
-            }
-            TimeCounter += Time.deltaTime; 
-        }
-    }
     public void ChangeState(CombatState newstate)
     {
         state = newstate;
@@ -102,6 +89,8 @@ public class CombatManager : MonoBehaviour
         else
         {
             ChangeState(CombatState.Victory);
+            new WaitForSeconds(5);
+            SceneManager.LoadScene(PreviousScene);
             /*
             if (true)
             {
@@ -123,19 +112,11 @@ public class CombatManager : MonoBehaviour
             text.SetActive(false);
         }
         MenuManager.instance._victory.SetActive(true);
-        TimeCounter = 0f;
-        Debug.Log("Début du compteur !");
-        isWaiting = true;
     }
     
     private void HandleLose()
     {
         throw new NotImplementedException();
-    }
-
-    private void ChangeScene()
-    {
-        SceneManager.LoadScene("Map");
     }
 }
 

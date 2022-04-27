@@ -17,12 +17,49 @@ public class PNJ : MonoBehaviour
 
     public QuestSO quest;
 
+    public Sprite iconQuest1, iconQuest2;
+    public SpriteRenderer questSr;
+
+    public GameObject choice1, choice2;
+
+    private void Start()
+    {
+        choice1 = manager.choice1;
+        choice2 = manager.choice2;
+        if (quest != null && quest.statut == QuestSO.Statut.none)
+        {
+            questSr.sprite = iconQuest1;
+        }
+        
+        else if (quest == null)
+        {
+            questSr.sprite = null;
+        }
+    }
+
     private void Update()
     {
         if (isOndial)
         {
             Time.timeScale = 0f;
         }
+
+        if (quest != null && quest.statut == QuestSO.Statut.accepter && quest.actualAmount < quest.amountToFind)
+        {
+            questSr.sprite = iconQuest2;
+            questSr.color = Color.red;
+        } 
+        else if (quest != null && quest.statut == QuestSO.Statut.accepter && quest.actualAmount >= quest.amountToFind)
+        {
+            questSr.sprite = iconQuest2;
+            questSr.color = Color.yellow;
+        }
+        else if (quest != null && quest.statut == QuestSO.Statut.complete)
+        {
+            questSr.sprite = null;
+        } 
+
+
         if (Input.GetKeyDown(KeyCode.E) && canDial)
         {
             if (quest != null && quest.statut == QuestSO.Statut.none)
@@ -33,10 +70,20 @@ public class PNJ : MonoBehaviour
             {
                 StartDialogue(quest.InprogressSentence);
             } 
-            else if (quest != null && quest.statut == QuestSO.Statut.accepter && quest.actualAmount == quest.amountToFind)
+            else if (quest != null && quest.statut == QuestSO.Statut.accepter && quest.actualAmount >= quest.amountToFind)
             {
                 StartDialogue(quest.completeSentence);
                 quest.statut = QuestSO.Statut.complete;
+
+                PlayerController.instance.money += quest.goldToGive;  //récompense quête
+
+                foreach (var item in QuestManager.instance.allQuest) //détruire objet quête 
+                {
+                    if (item.statut == QuestSO.Statut.accepter && item.objectTofind == quest.objectTofind)
+                    {
+                        item.actualAmount -= quest.amountToFind;
+                    }
+                }
             } 
             else if (quest != null && quest.statut == QuestSO.Statut.complete)
             {
@@ -74,6 +121,15 @@ public class PNJ : MonoBehaviour
         {
             manager.continueButton.SetActive(true);
         }
+
+        if (isOndial && index == sentence.Length -1)
+        {
+            if (quest != null && quest.statut == QuestSO.Statut.none)
+                {
+                    choice1.SetActive(true);
+                    choice2.SetActive(true);
+                }
+        }
     }
 
     public void NextLine(string[] sentence)
@@ -95,6 +151,17 @@ public class PNJ : MonoBehaviour
                 manager.textDisplay.text = "";
                 manager.nameDisplay.text = "";
                 manager.dialogueHolder.SetActive(false);
+
+                if (quest != null && quest.statut == QuestSO.Statut.none)
+                {
+                    choice1.SetActive(true);
+                    choice2.SetActive(true);
+
+                    choice1.GetComponent<Button>().onClick.RemoveAllListeners();
+                    choice2.GetComponent<Button>().onClick.RemoveAllListeners();
+                    choice1.GetComponent<Button>().onClick.AddListener(delegate { Accepte(); });
+                    choice2.GetComponent<Button>().onClick.AddListener(delegate { Decline(); });
+                }
             }
         }
     }
@@ -113,5 +180,31 @@ public class PNJ : MonoBehaviour
         {
             canDial = false;
         }
+    }
+
+    public void Accepte()
+    {
+        quest.statut = QuestSO.Statut.accepter;
+        isOndial = false;
+        index = 0;
+        manager.textDisplay.text = "";
+        manager.nameDisplay.text = "";
+        manager.dialogueHolder.SetActive(false);
+        choice1.SetActive(false);
+        choice2.SetActive(false);
+
+    }
+
+    public void Decline()
+    {
+        quest.statut = QuestSO.Statut.none;
+        isOndial = false;
+        index = 0;
+        manager.textDisplay.text = "";
+        manager.nameDisplay.text = "";
+        manager.dialogueHolder.SetActive(false);
+        choice1.SetActive(false);
+        choice2.SetActive(false);
+
     }
 }
