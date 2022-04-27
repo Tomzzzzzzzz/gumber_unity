@@ -8,13 +8,32 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
 
-    [SerializeField] private GameObject _selectedHeroObject, _tileObject, _tileUnitObject;
-    [SerializeField] private Button _attack, _moves;
+    [SerializeField] public GameObject _selectedHeroObject, _tileObject, _tileUnitObject, _range, _moves;
+    [SerializeField] public GameObject _victory;
+
+    [HideInInspector] public List<GameObject> InGameInfo;
+    [HideInInspector] public bool isShowingSelected;
     void Awake()
     {
         instance = this;
+        InGameInfo = new List<GameObject>() {_selectedHeroObject, _tileObject, _tileUnitObject, _range, _moves};
     }
 
+    void Update()
+    {
+        if (UnitManager.instance.SelectedHero != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E)) //Show moves
+            {
+                ShowMoves(UnitManager.instance.SelectedHero);
+            }
+
+            if (Input.GetKeyDown(KeyCode.F)) //Show attacks
+            {
+                ShowAttack(UnitManager.instance.SelectedHero);
+            }
+        }
+    }
     public void ShowTileInfo(Tile tile)
     {
         if (tile == null)
@@ -26,7 +45,7 @@ public class MenuManager : MonoBehaviour
         _tileObject.GetComponentInChildren<Text>().text = tile.TileName;
         _tileObject.SetActive(true);
 
-        if(tile.OccupiedUnit)
+        if(tile.OccupiedUnit && !isShowingSelected)
         {
             _tileUnitObject.GetComponentInChildren<Text>().text = tile.OccupiedUnit.UnitName;
             _tileUnitObject.SetActive(true);
@@ -37,27 +56,65 @@ public class MenuManager : MonoBehaviour
         if (hero == null)
         {
             _selectedHeroObject.SetActive(false);
-            /* Trouver comment cacher bouttons
-            _attack.SetActive(false);
-            _moves.SetActive(false); */
+            _range.SetActive(false);
+            _moves.SetActive(false);
+            isShowingSelected = false;
             return;
         }
         _selectedHeroObject.GetComponentInChildren<Text>().text = hero.UnitName;
         _selectedHeroObject.SetActive(true);
-        /* Trouver comment afficher bouttons
-        _attack.SetActive(true);
-        _moves.SetActive(true); */
+        _range.SetActive(true);
+        _moves.SetActive(true);
+        isShowingSelected = true;
     }
 
     // Dans un premier temps, dé-surligne les cases d'attaques (dans tous les cas)
-    public void HighlightMovesTiles(BaseHero hero)
+    private void HighlightMovesTiles(BaseHero hero)
     {
-        throw new NotImplementedException();
+        foreach (Tile tile in hero.MovesList)
+        {
+            tile._movementHighlight.SetActive(true);
+        }
     }
 
     // Dans un premier temps, dé-surligne les cases de mouvements (dans tous les cas)
-    public void HighlightAttackTiles(BaseHero hero)
+    private void HighlightAttackTiles(BaseHero hero)
     {
-        throw new NotImplementedException();
+        foreach (Tile tile in hero.MovesList)
+        {
+            tile._rangeHighlight.SetActive(true);
+        }
+    }
+
+    private void UnHighlightMoves(BaseHero hero)
+    {
+        foreach (Tile tile in hero.MovesList)
+        {
+            tile._movementHighlight.SetActive(false);
+        }
+    }
+    private void UnHighlightAttack(BaseHero hero)
+    {
+        foreach (Tile tile in hero.MovesList)
+        {
+            tile._rangeHighlight.SetActive(false);
+        }
+    }
+
+    public void UnHighlight(BaseHero hero)
+    {
+        UnHighlightMoves(hero);
+        UnHighlightAttack(hero);
+    }
+
+    private void ShowMoves(BaseHero hero)
+    {
+        UnHighlightAttack(hero);
+        HighlightMovesTiles(hero);
+    }
+    private void ShowAttack(BaseHero hero)
+    {
+        UnHighlightMoves(hero);
+        HighlightAttackTiles(hero);
     }
 }

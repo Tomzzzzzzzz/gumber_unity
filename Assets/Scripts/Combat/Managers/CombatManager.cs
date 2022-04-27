@@ -2,17 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager instance;
 
+    public string PreviousScene; // Permet de retourner à la scène précédente à la fin du combat
     public CombatState state;
-
     public static event Action<CombatState> OnCombatStateChanged;
+    [HideInInspector] public int EnemiesAlive;
     void Awake()
     {
         instance = this;
+        EnemiesAlive = 1; //pour les tests
     }
 
     private void Start()
@@ -79,13 +81,17 @@ public class CombatManager : MonoBehaviour
     
     private void HandleDecide() //après chaque tour, vérifie si la partie est terminée ou non
     {
-        if (true)
+        if (EnemiesAlive != 0)
         {
             ChangeState(CombatState.HeroesTurn);
             return;
         }
         else
         {
+            ChangeState(CombatState.Victory);
+            new WaitForSeconds(5);
+            SceneManager.LoadScene(PreviousScene);
+            /*
             if (true)
             {
                 ChangeState(CombatState.Victory);
@@ -95,13 +101,17 @@ public class CombatManager : MonoBehaviour
             {
                 ChangeState(CombatState.Lose);
                 return;
-            }
+            }*/
         }
     }
     
     private void HandleVictory()
     {
-        throw new NotImplementedException();
+        foreach (GameObject text in MenuManager.instance.InGameInfo)
+        {
+            text.SetActive(false);
+        }
+        MenuManager.instance._victory.SetActive(true);
     }
     
     private void HandleLose()

@@ -29,6 +29,7 @@ public class UnitManager : MonoBehaviour
     }
     public void SpawnHeroes()
     {
+        //var heroCount = CombatManager.instance.HeroesAlive;
         var heroCount = 1;
 
         for (int i = 0; i < heroCount; i++)
@@ -47,7 +48,8 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        var enemyCount = 1;
+        var enemyCount = CombatManager.instance.EnemiesAlive;
+        //var enemyCount = 1;
 
         for (int i = 0; i < enemyCount; i++)
         {

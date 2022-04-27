@@ -8,8 +8,8 @@ public abstract class Tile : MonoBehaviour
     public string TileName;
     [SerializeField] protected SpriteRenderer _renderer;
     [SerializeField] private GameObject _highlight;
-    [SerializeField] private GameObject _rangeHighlight;
-    [SerializeField] private GameObject _movementHighlight;
+    [SerializeField] public GameObject _rangeHighlight;
+    [SerializeField] public GameObject _movementHighlight;
     [SerializeField] private bool _isWalkable; // permet de définir des cases de collision ex: eau, montagne etc...
     [HideInInspector] public Vector2 Coordonnees;
 
@@ -39,7 +39,12 @@ public abstract class Tile : MonoBehaviour
 
         if (OccupiedUnit != null)
         {
-            if (OccupiedUnit.faction == Faction.Hero) UnitManager.instance.SetSelectedHero((BaseHero)OccupiedUnit);
+            if (OccupiedUnit.faction == Faction.Hero)
+            {
+                UnitManager.instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                MenuManager.instance.isShowingSelected = true;
+                MenuManager.instance._tileUnitObject.SetActive(false);
+            }
             else
             {
                 if (UnitManager.instance.SelectedHero != null) // ici on sait qu'on clique sur un ennemi
@@ -50,8 +55,10 @@ public abstract class Tile : MonoBehaviour
                     if (IsInList(this,UnitManager.instance.SelectedHero.RangeList))
                     {
                         Destroy(enemy.gameObject);
+                        MenuManager.instance.UnHighlight(UnitManager.instance.SelectedHero);
                         UnitManager.instance.SetSelectedHero(null);
                         UnitManager.instance.Coups += 1;
+                        CombatManager.instance.EnemiesAlive -= 1;
                     }  
                 }
             }
@@ -61,12 +68,17 @@ public abstract class Tile : MonoBehaviour
             if (UnitManager.instance.SelectedHero != null && _isWalkable &&
                 IsInList(this,UnitManager.instance.SelectedHero.MovesList))
             {
+                MenuManager.instance.UnHighlight(UnitManager.instance.SelectedHero);
+
                 SetUnit(UnitManager.instance.SelectedHero);
-                UnitManager.instance.SetSelectedHero(null);
                 UnitManager.instance.GetAvailableTiles(UnitManager.instance.SelectedHero); //actualisation de la liste de coups
+                UnitManager.instance.SetSelectedHero(null);
                 UnitManager.instance.Coups += 1;
                 Debug.Log($"Coup n°{UnitManager.instance.Coups}");
                 Console.WriteLine($"Coup n°{UnitManager.instance.Coups}");
+
+                MenuManager.instance.isShowingSelected = false;
+                MenuManager.instance._tileUnitObject.SetActive(true);
             }
         }
     }
