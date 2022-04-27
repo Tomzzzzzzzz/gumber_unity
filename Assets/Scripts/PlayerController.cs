@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     //Animator anim;
 
     [Header("Stat")]
+    [SerializeField]
+    float moveSpeed;
     public int maxHealth;
     public int currentHealth;
     public static int money;
@@ -26,6 +28,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+
         if (!PlayerPrefs.HasKey("selectedOption"))
         {
             selectedOption = 0;
@@ -41,6 +45,20 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    void Move()
+    {
+        float x = Input.GetAxisRaw("Horizontal") * moveSpeed * Time.fixedDeltaTime;
+        float y = Input.GetAxisRaw("Vertical") * moveSpeed * Time.fixedDeltaTime;
+
+        rb.velocity = new Vector2(x,y);
+        rb.velocity.Normalize();
     }
 
     //

@@ -35,6 +35,7 @@ public class QuestManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J) && !panelQuest.activeInHierarchy)
         {
+            Debug.Log("ccc");
             panelQuest.SetActive(true);
 
             if (parent.transform.childCount > 0)

@@ -458,6 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedHero: {fileID: 0}
+  Coups: 0
 --- !u!4 &686150321
 Transform:
   m_ObjectHideFlags: 0
@@ -697,6 +698,8 @@ MonoBehaviour:
   _selectedHeroObject: {fileID: 1581733755}
   _tileObject: {fileID: 99837994}
   _tileUnitObject: {fileID: 1848041495}
+  _attack: {fileID: 0}
+  _moves: {fileID: 0}
 --- !u!1 &1281318237
 GameObject:
   m_ObjectHideFlags: 0
