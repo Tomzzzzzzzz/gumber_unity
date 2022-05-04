@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1782324ef759a1549b9ab22f93a76d8e, type: 3}
+  m_Name: New Character Database
+  m_EditorClassIdentifier: 
+  character:
+  - characterName: Paladin
+    characterSprite: {fileID: 21300000, guid: 36393bddbef3d474887df4f156136bcc, type: 3}
+  - characterName: Hunter
+    characterSprite: {fileID: 21300000, guid: b8c4a6438bc199342a18235cc2d02e53, type: 3}
+  - characterName: Assassin
+    characterSprite: {fileID: 21300000, guid: d58bf4a3bfaed0d4ebac698c11769847, type: 3}
+  - characterName: Support
+    characterSprite: {fileID: 21300000, guid: a3096d859b5c86e40bf719eedd62ca6a, type: 3}
+  - characterName: Mage
+    characterSprite: {fileID: 21300000, guid: d05b61bb1775f1546bae4811a505d7a4, type: 3}
