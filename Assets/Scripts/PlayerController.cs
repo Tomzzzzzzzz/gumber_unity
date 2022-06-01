@@ -22,11 +22,6 @@ public class PlayerController : NetworkBehaviour
 
     public static PlayerController instance;
 
-    private void Awake()
-    {
-        instance = this;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -42,16 +37,18 @@ public class PlayerController : NetworkBehaviour
         }
         UpdateCharacter(selectedOption);
 
-        if(isLocalPlayer)
-        {
-            Camera.main.GetComponent<CameraFollow>().SetTarget(gameObject.transform);
-        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(isLocalPlayer)
+        {
+            Camera.main.GetComponent<CameraFollow>().SetTarget(gameObject.transform);
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
 
     private void FixedUpdate()

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using kcp2k;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Mirror;
 
 public class TP_Zone : MonoBehaviour
 {
@@ -15,16 +16,23 @@ public class TP_Zone : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && col)
         {
+            GameManager.instance.previousZone = actualZone;
             SceneManager.LoadScene(nextZone);
-            CombatManager.instance.PreviousScene = actualZone;
         }
-            
     }
     private void OnTriggerEnter2D (Collider2D collision)
     {

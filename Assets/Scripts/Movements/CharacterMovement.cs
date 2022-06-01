@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Mirror;
 
-public class CharacterMovement : NetworkBehaviour
+public class CharacterMovement : MonoBehaviour
 {
     MouseInput mouseInput;
     public Tilemap map;
@@ -14,6 +14,7 @@ public class CharacterMovement : NetworkBehaviour
     private void Awake()
     {
         mouseInput = new MouseInput();
+        
     }
 
     private void OnEnable()

@@ -6,21 +6,39 @@ using UnityEngine.SceneManagement;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager instance;
-
-    public string PreviousScene; // Permet de retourner à la scène précédente à la fin du combat
     public CombatState state;
     public static event Action<CombatState> OnCombatStateChanged;
     [HideInInspector] public int EnemiesAlive;
+    [HideInInspector] private bool isEnded;
+    [HideInInspector] private float TimeCounter;
     void Awake()
     {
         instance = this;
         EnemiesAlive = 1; //pour les tests
+        isEnded = false;
     }
 
     private void Start()
     {
         ChangeState(CombatState.GenerateGrid);
         UnitManager.instance.Coups = 0;
+    }
+
+    private void Update()
+    {
+        if (isEnded)
+        {
+            if (TimeCounter >= 3f)
+            {
+                TimeCounter = 0f;
+                isEnded = false;
+                SceneManager.LoadScene(GameManager.instance.previousZone);
+            }
+            else
+            {
+                TimeCounter += Time.deltaTime;
+            }
+        }
     }
 
     public void ChangeState(CombatState newstate)
@@ -88,9 +106,8 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
+
             ChangeState(CombatState.Victory);
-            new WaitForSeconds(5);
-            SceneManager.LoadScene(PreviousScene);
             /*
             if (true)
             {
@@ -111,7 +128,9 @@ public class CombatManager : MonoBehaviour
         {
             text.SetActive(false);
         }
+        Debug.Log("ici ça win");
         MenuManager.instance._victory.SetActive(true);
+        isEnded = true;
     }
     
     private void HandleLose()
