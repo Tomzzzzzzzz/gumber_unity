@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Quest 1
   m_EditorClassIdentifier: 
   id: 1
-  title: 'Trouve le coffre magique S '
-  description: cc
+  title: "Premi\xE8res pi\xE8ces"
+  description: Retrouve l'argent perdu du villageois
   sentences:
-  - Hello.. Il y a un coffre dans la plaine, trouve le !
+  - "Bonjour, j'ai \xE9gar\xE9 mes pi\xE8ces d'or dans le village, pourrais-tu m'aider?"
   InprogressSentence:
-  - Le coffre se trouve dans la plaine...
+  - "Je crois les avoir perdu \xE0 c\xF4t\xE9 du chateau.."
   completeSentence:
-  - "Bien jou\xE9 ! Tu l'as trouv\xE9, tu peux maintenant t'\xE9quiper !"
+  - "Merci brave homme, partageons ces pi\xE8ces ! Voici 50 golds."
   afterQuestSentence:
-  - "Tu as d\xE9j\xE0 trouv\xE9 le coffre.."
-  objectTofind: 
+  - Merci infiniment.
+  objectTofind: Coin
   actualAmount: 0
-  amountToFind: 2
+  amountToFind: 1
   goldToGive: 50
-  statut: 1
+  statut: 0

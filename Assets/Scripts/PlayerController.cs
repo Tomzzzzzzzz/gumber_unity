@@ -43,7 +43,7 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isLocalPlayer)
+        if(isLocalPlayer && this != null)
         {
             Camera.main.GetComponent<CameraFollow>().SetTarget(gameObject.transform);
             instance = this;
@@ -58,7 +58,7 @@ public class PlayerController : NetworkBehaviour
 
     void Move()
     {
-        if (isLocalPlayer)
+        if (isLocalPlayer && this != null)
         {
             if (Input.GetAxis("Horizontal") > 0.1 || Input.GetAxis("Horizontal") < -0.1 ||
                 Input.GetAxis("Vertical") > 0.1 || Input.GetAxis("Vertical") < -0.1)

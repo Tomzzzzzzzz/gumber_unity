@@ -27,4 +27,4 @@ MonoBehaviour:
   actualAmount: 0
   amountToFind: 2
   goldToGive: 50
-  statut: 1
+  statut: 0
