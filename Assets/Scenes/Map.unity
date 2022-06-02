@@ -2414,6 +2414,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3779929744512796751, guid: 1091814138fbee240a77731059faba78, type: 3}
+      propertyPath: actualZone
+      value: Map
+      objectReference: {fileID: 0}
     - target: {fileID: 3779929744512796752, guid: 1091814138fbee240a77731059faba78, type: 3}
       propertyPath: m_SortingLayer
       value: 2
