@@ -13,7 +13,7 @@ public class QuestManager : MonoBehaviour
     public static QuestManager instance;
 
     bool firstQuest = true;
-
+    private bool isShown = false;
     private void Awake()
     {
         instance = this;
@@ -36,57 +36,63 @@ public class QuestManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            panelQuest.SetActive(true);
-
-            if (parent.transform.childCount > 0)
+            if (isShown)
             {
-                foreach (Transform child in parent.transform)
-                {
-                    Destroy(child.gameObject);
-                }
+                panelQuest.SetActive(false);
+                isShown = false;
             }
-
-            for (int i = 0; i < allQuest.Count; i++)
+            else
             {
-                if (i <= allQuest.Count -1)
+                panelQuest.SetActive(true);
+                isShown = true;
+                if (parent.transform.childCount > 0)
                 {
-                    if (allQuest[i].statut == QuestSO.Statut.accepter)
+                    foreach (Transform child in parent.transform)
                     {
-                        GameObject slot = Instantiate(quest, parent.transform.position, transform.rotation);
-                        slot.transform.SetParent(parent.transform);
+                        Destroy(child.gameObject);
+                    }
+                }
 
-                        TextMeshProUGUI title = slot.transform.Find("TitleQuest").GetComponent<TextMeshProUGUI>();
-                        title.text = allQuest[i].title;
-
-                        TextMeshProUGUI statut = slot.transform.Find("Statut").GetComponent<TextMeshProUGUI>();
-                        statut.text = "(" + allQuest[i].statut + ")";
-
-                        slot.GetComponent<QuestID>().questId = allQuest[i].id;
-
-                        if (firstQuest)
+                for (int i = 0; i < allQuest.Count; i++)
+                {
+                    if (i <= allQuest.Count -1)
+                    {
+                        if (allQuest[i].statut == QuestSO.Statut.accepter)
                         {
-                            TextMeshProUGUI titleDes = descriptionPanel.transform.Find("TitleQuest").GetComponent<TextMeshProUGUI>();
-                            titleDes.text = allQuest[i].title;
+                            GameObject slot = Instantiate(quest, parent.transform.position, transform.rotation);
+                            slot.transform.SetParent(parent.transform);
 
-                            TextMeshProUGUI description = descriptionPanel.transform.Find("DescriptionQuest").GetComponent<TextMeshProUGUI>();
-                            description.text = allQuest[i].description;
+                            TextMeshProUGUI title = slot.transform.Find("TitleQuest").GetComponent<TextMeshProUGUI>();
+                            title.text = allQuest[i].title;
 
-                            TextMeshProUGUI objectif = descriptionPanel.transform.Find("Objectif").GetComponent<TextMeshProUGUI>();
-                            objectif.text = "Objectif : " + allQuest[i].actualAmount + "/" + allQuest[i].amountToFind;
+                            TextMeshProUGUI statut = slot.transform.Find("Statut").GetComponent<TextMeshProUGUI>();
+                            statut.text = "(" + allQuest[i].statut + ")";
 
-                            TextMeshProUGUI recompense = descriptionPanel.transform.Find("Recompense").GetComponent<TextMeshProUGUI>();
-                            recompense.text = "Récompense : " + allQuest[i].goldToGive;
+                            slot.GetComponent<QuestID>().questId = allQuest[i].id;
 
-                            firstQuest = false;
+                            if (firstQuest)
+                            {
+                                TextMeshProUGUI titleDes = descriptionPanel.transform.Find("TitleQuest").GetComponent<TextMeshProUGUI>();
+                                titleDes.text = allQuest[i].title;
+
+                                TextMeshProUGUI description = descriptionPanel.transform.Find("DescriptionQuest").GetComponent<TextMeshProUGUI>();
+                                description.text = allQuest[i].description;
+
+                                TextMeshProUGUI objectif = descriptionPanel.transform.Find("Objectif").GetComponent<TextMeshProUGUI>();
+                                objectif.text = "Objectif : " + allQuest[i].actualAmount + "/" + allQuest[i].amountToFind;
+
+                                TextMeshProUGUI recompense = descriptionPanel.transform.Find("Recompense").GetComponent<TextMeshProUGUI>();
+                                recompense.text = "Récompense : " + allQuest[i].goldToGive;
+
+                                firstQuest = false;
+                            }
                         }
                     }
                 }
             }
+            
         }
-        else if (Input.GetKeyDown(KeyCode.J))
-        {
-            panelQuest.SetActive(false);
-        }
+        
     }
 
     public void ChargeQuest(int i)

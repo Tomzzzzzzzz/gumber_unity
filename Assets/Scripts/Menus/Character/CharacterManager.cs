@@ -8,8 +8,14 @@ public class CharacterManager : MonoBehaviour
 {
     public CharacterDatabase characterDB;
     public Text nameText;
+    public SpriteRenderer headSprite;
     public SpriteRenderer artworkSprite;
+    public Text Text;
+
+    public static string pseudo;
     private int selectedOption = 0;
+
+    public GameObject panelSelection, panelPseudo;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +29,13 @@ public class CharacterManager : MonoBehaviour
         }
         UpdateCharacter(selectedOption);
     }
-
+    void Update()
+    {
+        pseudo = Text.text;
+    }
     public void PlayGame()
     {
+        Debug.Log($"CM pseudo : {pseudo}");
         SceneManager.LoadScene("Map");
     }
 
@@ -56,6 +66,7 @@ public class CharacterManager : MonoBehaviour
     private void UpdateCharacter(int selectedOption)
     {
         Character character = characterDB.GetCharacter(selectedOption);
+        headSprite.sprite = character.headSprite;
         artworkSprite.sprite = character.characterSprite;
         nameText.text = character.characterName;
     }
@@ -67,5 +78,12 @@ public class CharacterManager : MonoBehaviour
     private void Save()
     {
         PlayerPrefs.SetInt("selectedOption", selectedOption);
+        PlayerPrefs.SetString("pseudo", pseudo);
+    }
+
+    public void Accept()
+    {
+        panelSelection.SetActive(false);
+        panelPseudo.SetActive(true);
     }
 }

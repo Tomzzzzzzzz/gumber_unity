@@ -7,7 +7,7 @@ public class PlayerController : NetworkBehaviour
 {
     [Header("Component")]
     Rigidbody2D rb;
-    string pseudo;
+    public string pseudo;
     Animator anim;
 
     [Header("Stat")]
@@ -16,12 +16,14 @@ public class PlayerController : NetworkBehaviour
     public int maxHealth;
     public int currentHealth;
     public static int money;
-    public /*static ?*/ int xp;
-
+    public static int xp;
     private float litmitSpeed = 0.7f;
-
     public static PlayerController instance;
-
+    public CharacterDatabase characterDB;
+    public SpriteRenderer artworkSprite;
+    public Sprite characterHead;
+    public int id;
+    private int selectedOption = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +38,7 @@ public class PlayerController : NetworkBehaviour
             Load();
         }
         UpdateCharacter(selectedOption);
-
-        
+        pseudo = CharacterManager.pseudo;
     }
 
     // Update is called once per frame
@@ -85,18 +86,41 @@ public class PlayerController : NetworkBehaviour
     //
     // LOAD SKIN 
     //
-    public CharacterDatabase characterDB;
-    public SpriteRenderer artworkSprite;
-    private int selectedOption = 0;
     private void UpdateCharacter(int selectedOption)
     {
         Character character = characterDB.GetCharacter(selectedOption);
         artworkSprite.sprite = character.characterSprite;
+        characterHead = character.headSprite;
     }
 
     private void Load()
     {
         selectedOption = PlayerPrefs.GetInt("selectedOption");
+        pseudo = PlayerPrefs.GetString("pseudo");
+        Debug.Log($"PC pseudo : {pseudo}");
     }
 
+    private void OnTriggerEnter2D (Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            GameManager.instance.closePlayers.Add(collision.gameObject.GetComponent(typeof(PlayerController)) as PlayerController);
+        }
+    }
+
+    private void OnTriggerExit2D (Collider2D collision)
+    {
+        if (collision.tag == "Player")
+            RemoveFromList(collision.gameObject.GetComponent(typeof(PlayerController)) as PlayerController);
+    }
+
+    private void RemoveFromList(PlayerController player)
+    {
+        for (int i = 0; i < GameManager.instance.closePlayers.Count; i++)
+            if (player.pseudo == GameManager.instance.closePlayers[i].pseudo)
+            {
+                GameManager.instance.closePlayers.RemoveAt(i);
+                return;
+            }
+    }
 }

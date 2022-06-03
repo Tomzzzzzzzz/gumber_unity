@@ -6,6 +6,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    public List<PlayerController> closePlayers;
+
+    private bool col;
     
     [HideInInspector]
     public string previousZone;
@@ -31,4 +35,5 @@ public class GameManager : MonoBehaviour
     {
         
     }
+    
 }

@@ -12,7 +12,7 @@ public class TP_Zone : MonoBehaviour
 
     public string nextZone;
     public string actualZone;
-    public bool col;
+    private bool col;
 
     void Awake()
     {
