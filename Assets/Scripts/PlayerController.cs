@@ -15,8 +15,8 @@ public class PlayerController : NetworkBehaviour
     float moveSpeed;
     public int maxHealth;
     public int currentHealth;
-    public static int money;
-    public static int xp;
+    public int money;
+    public int xp;
     private float litmitSpeed = 0.7f;
     public static PlayerController instance;
     public CharacterDatabase characterDB;
@@ -24,6 +24,9 @@ public class PlayerController : NetworkBehaviour
     public Sprite characterHead;
     public int id;
     private int selectedOption = 0;
+
+    public int Xp => xp;
+    public int CurrentHealth => currentHealth;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +42,7 @@ public class PlayerController : NetworkBehaviour
         }
         UpdateCharacter(selectedOption);
         pseudo = CharacterManager.pseudo;
+        InfoPlayerManager.instance.panel.SetActive(true);
     }
 
     // Update is called once per frame

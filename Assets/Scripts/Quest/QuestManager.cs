@@ -38,11 +38,11 @@ public class QuestManager : MonoBehaviour
         {
             if (isShown)
             {
-                panelQuest.SetActive(false);
-                isShown = false;
+                Hide();
             }
             else
             {
+                GroupManager.instance.Hide();
                 panelQuest.SetActive(true);
                 isShown = true;
                 if (parent.transform.childCount > 0)
@@ -93,6 +93,12 @@ public class QuestManager : MonoBehaviour
             
         }
         
+    }
+
+    public void Hide()
+    {
+        panelQuest.SetActive(false);
+        isShown = false;
     }
 
     public void ChargeQuest(int i)

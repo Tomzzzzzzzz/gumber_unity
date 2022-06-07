@@ -34,11 +34,11 @@ public class GroupManager : NetworkBehaviour
         {
             if (isShown)
             {
-                panelGroup.SetActive(false);
-                isShown = false;
+                Hide();
             }
             else
             {
+                QuestManager.instance.Hide();
                 panelGroup.SetActive(true);
                 isShown = true;
                 if (parentinfo.transform.childCount > 0)
@@ -86,6 +86,12 @@ public class GroupManager : NetworkBehaviour
                 }
             }
         }
+    }
+
+    public void Hide()
+    {
+        panelGroup.SetActive(false);
+        isShown = false;
     }
 
     private void Invite()
