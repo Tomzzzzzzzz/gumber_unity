@@ -7,42 +7,48 @@ public class PlayerController : NetworkBehaviour
 {
     [Header("Component")]
     Rigidbody2D rb;
-    public string pseudo;
     Animator anim;
 
     [Header("Stat")]
     [SerializeField]
     float moveSpeed;
-    public int maxHealth;
-    public int currentHealth;
-    public int money;
-    public int xp;
     private float litmitSpeed = 0.7f;
     public static PlayerController instance;
     public CharacterDatabase characterDB;
-    public SpriteRenderer artworkSprite;
+    public Sprite artworkSprite;
     public Sprite characterHead;
-    public int id;
+    
+    [HideInInspector] public SpriteRenderer Renderer;
     private int selectedOption = 0;
 
-    public int Xp => xp;
-    public int CurrentHealth => currentHealth;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        if (!PlayerPrefs.HasKey("selectedOption"))
+        Renderer = GetComponent<SpriteRenderer>();
+        if (isLocalPlayer)
         {
-            selectedOption = 0;
+            if (!PlayerPrefs.HasKey("selectedOption"))
+            {
+                selectedOption = 0;
+            }
+            else
+            {
+                Load();
+            }
+            UpdateCharacter(selectedOption);
+            /*
+            pseudo = CharacterManager.pseudo;
+            id = NetworkClient.localPlayer.netId;
+            */
+            InfoPlayerManager.instance.GetPlayer();
+            InfoPlayerManager.instance.panel.SetActive(true);
         }
         else
         {
-            Load();
+            Renderer.sprite = artworkSprite;
         }
-        UpdateCharacter(selectedOption);
-        pseudo = CharacterManager.pseudo;
-        InfoPlayerManager.instance.panel.SetActive(true);
     }
 
     // Update is called once per frame
@@ -93,35 +99,36 @@ public class PlayerController : NetworkBehaviour
     private void UpdateCharacter(int selectedOption)
     {
         Character character = characterDB.GetCharacter(selectedOption);
-        artworkSprite.sprite = character.characterSprite;
+        artworkSprite = character.characterSprite;
         characterHead = character.headSprite;
+        Renderer.sprite = character.characterSprite;
     }
 
     private void Load()
     {
         selectedOption = PlayerPrefs.GetInt("selectedOption");
-        pseudo = PlayerPrefs.GetString("pseudo");
-        Debug.Log($"PC pseudo : {pseudo}");
+        //pseudo = PlayerPrefs.GetString("pseudo");
+        //Debug.Log($"PC pseudo : {pseudo}");
     }
 
     private void OnTriggerEnter2D (Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            GameManager.instance.closePlayers.Add(collision.gameObject.GetComponent(typeof(PlayerController)) as PlayerController);
+            GameManager.instance.closePlayers.Add(collision.gameObject.GetComponent(typeof(PlayerData)) as PlayerData);
         }
     }
 
     private void OnTriggerExit2D (Collider2D collision)
     {
         if (collision.tag == "Player")
-            RemoveFromList(collision.gameObject.GetComponent(typeof(PlayerController)) as PlayerController);
+            RemoveFromList(collision.gameObject.GetComponent(typeof(PlayerData)) as PlayerData);
     }
 
-    private void RemoveFromList(PlayerController player)
+    private void RemoveFromList(PlayerData player)
     {
         for (int i = 0; i < GameManager.instance.closePlayers.Count; i++)
-            if (player.pseudo == GameManager.instance.closePlayers[i].pseudo)
+            if (player.id == GameManager.instance.closePlayers[i].id)
             {
                 GameManager.instance.closePlayers.RemoveAt(i);
                 return;

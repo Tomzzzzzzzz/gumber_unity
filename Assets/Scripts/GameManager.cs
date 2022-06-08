@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public List<PlayerController> closePlayers;
+    public List<PlayerData> closePlayers;
 
     private bool col;
     

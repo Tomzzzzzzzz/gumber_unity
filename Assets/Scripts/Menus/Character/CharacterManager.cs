@@ -8,11 +8,12 @@ public class CharacterManager : MonoBehaviour
 {
     public CharacterDatabase characterDB;
     public Text nameText;
-    public SpriteRenderer headSprite;
+    public Sprite headSprite;
     public SpriteRenderer artworkSprite;
     public Text Text;
 
     public static string pseudo;
+    public static string race;
     private int selectedOption = 0;
 
     public GameObject panelSelection, panelPseudo;
@@ -66,9 +67,10 @@ public class CharacterManager : MonoBehaviour
     private void UpdateCharacter(int selectedOption)
     {
         Character character = characterDB.GetCharacter(selectedOption);
-        headSprite.sprite = character.headSprite;
+        headSprite = character.headSprite;
         artworkSprite.sprite = character.characterSprite;
         nameText.text = character.characterName;
+        race = character.characterName;
     }
 
     private void Load()

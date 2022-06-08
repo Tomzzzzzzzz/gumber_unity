@@ -8,4 +8,11 @@ public class Character
     public string characterName;
     public Sprite characterSprite;
     public Sprite headSprite;
+
+    public static Character instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
 }

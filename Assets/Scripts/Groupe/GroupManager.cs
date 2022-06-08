@@ -7,7 +7,7 @@ using Mirror;
 
 public class GroupManager : NetworkBehaviour
 {
-    public List<PlayerController> allPlayers;
+    public List<PlayerData> playersInGroup;
     public static int nbPlayers;
     public GameObject playerInfo, playersToInvite, parentinfo, parentinvite, panelGroup;
     public static GroupManager instance;
@@ -20,11 +20,8 @@ public class GroupManager : NetworkBehaviour
     void Start()
     {
         panelGroup.SetActive(false);
-        for (int i = 0; i < allPlayers.Count; i++)
-        {
-            allPlayers[i].id = i;
-        }
-        nbPlayers = allPlayers.Count;
+        nbPlayers = 1;
+        playersInGroup = new List<PlayerData> {PlayerData.instance};
     }
 
     // Update is called once per frame
@@ -58,16 +55,16 @@ public class GroupManager : NetworkBehaviour
                 //                 //
                 //  Panel members  //
                 //                 //
-                for (int i = 0; i < allPlayers.Count; i++)
+                for (int i = 0; i < playersInGroup.Count; i++)
                 {
                     GameObject slot = Instantiate(playerInfo, parentinfo.transform.position, transform.rotation);
                     slot.transform.SetParent(parentinfo.transform);
 
                     TextMeshProUGUI pseudo = slot.transform.Find("Pseudo").GetComponent<TextMeshProUGUI>();
-                    pseudo.text = allPlayers[i].pseudo;
+                    pseudo.text = playersInGroup[i].pseudo;
 
                     Sprite head = slot.transform.Find("TeteJoueur").GetComponent<Sprite>();
-                    head = allPlayers[i].characterHead;
+                    head = playersInGroup[i].headSprite;
                 }
 
                 //                 //
@@ -82,7 +79,9 @@ public class GroupManager : NetworkBehaviour
                     pseudo.text = GameManager.instance.closePlayers[i].pseudo;
 
                     Sprite head = slot.transform.Find("TeteJoueur").GetComponent<Sprite>();
-                    head = GameManager.instance.closePlayers[i].characterHead;
+                    head = GameManager.instance.closePlayers[i].headSprite;
+
+                    slot.GetComponent<RandomInfoID>().id = GameManager.instance.closePlayers[i].id;
                 }
             }
         }
@@ -94,17 +93,8 @@ public class GroupManager : NetworkBehaviour
         isShown = false;
     }
 
-    private void Invite()
+    public void Invite()
     {
-        if (isLocalPlayer)
-        {
-            /*
-            if (col && boutoninvite.tkt)
-            {
-                allPlayers.Add(l'autre gars);
-                nbPlayers++;
-            }
-            */
-        }
+
     }
 }

@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 
-public class InfoPlayerManager : MonoBehaviour
+public class InfoPlayerManager : NetworkBehaviour
 {
     public Text hp, level;
     public GameObject panel;
     public static InfoPlayerManager instance;
 
-    private PlayerController player; 
+    private PlayerData player; 
     private void Awake()
     {
         instance = this;
@@ -19,19 +19,16 @@ public class InfoPlayerManager : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (player == null)
-        {
-            GetPlayer();
-        }
-        else
+        if (player != null)
         {
             level.text = (player.xp / 100).ToString();
             hp.text = player.currentHealth.ToString();
         }
     }
 
-    void GetPlayer()
+    public void GetPlayer()
     {
-        player = NetworkClient.localPlayer.gameObject.GetComponent<PlayerController>();
+        player = NetworkClient.localPlayer.gameObject.GetComponent<PlayerData>();
+        if (player != null) { Debug.Log("GetPlayer function succeeded");}
     }
 }
