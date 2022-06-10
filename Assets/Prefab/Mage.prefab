@@ -8,7 +8,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3117802263012820966, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 188174136692741594}
+    - target: {fileID: -3117802263012820966, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3117802263012820966, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
+      propertyPath: clientAuthority
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3803922080605955073, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
@@ -97,3 +105,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
+--- !u!95 &188174136692741594 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3803922080605955073, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
+  m_PrefabInstance: {fileID: 3915521002267013595}
+  m_PrefabAsset: {fileID: 0}
