@@ -7,6 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3117802263012820966, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803922080605955073, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803922080605955073, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cc82257b1db694b418f2d77e99062d72, type: 2}
     - target: {fileID: 6368677614082962177, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: artworkSprite
       value: 
