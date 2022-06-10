@@ -51,11 +51,14 @@ public abstract class Tile : MonoBehaviour
             {
                 if (UnitManager.instance.SelectedHero != null) // ici on sait qu'on clique sur un ennemi
                 {
+                    Debug.Log("attaque un ennemi");
                     var enemy = (BaseEnemy) OccupiedUnit;
-                    //UnitManager.instance.SelectedHero.Attack() ---> dedans on gère l'animation, les pv perdus etc...
+                    Debug.Log(enemy);
+                    // UnitManager.instance.SelectedHero.Attack() ---> dedans on gère l'animation, les pv perdus etc...
                     // Pour l'instant, le kill est instant
                     if (IsInList(this,UnitManager.instance.SelectedHero.RangeList))
                     {
+                        Debug.Log("isinlist");
                         Destroy(enemy.gameObject);
                         MenuManager.instance.UnHighlight(UnitManager.instance.SelectedHero);
                         UnitManager.instance.SetSelectedHero(null);
@@ -95,8 +98,49 @@ public abstract class Tile : MonoBehaviour
     private static bool IsInList(Tile tile, List<Tile> list)
     {
         foreach (Tile elt in list)
-            if (Vector2.Equals(tile.Coordonnees,elt.Coordonnees))
+            if (tile.Coordonnees.x == elt.Coordonnees.x && tile.Coordonnees.y == elt.Coordonnees.y)
                 return true;
         return false;
     }
+
+    // PARTIE IA //
+    // PARTIE IA //
+    // PARTIE IA //
+
+ /*   public void EnemyAttack(BaseEnemy enemy)
+    {
+        if (PauseMenu.GameIsPaused) return;
+        if(CombatManager.instance.state != CombatState.EnemiesTurn || UnitManager.instance.Coups == 2) return;
+        GetAvailableTiles(enemy);
+        if (OccupiedUnit != null)
+        {
+            if (OccupiedUnit.faction == Faction.Enemy)
+            {
+                UnitManager.instance.SetSelectedHero((BaseHero)OccupiedUnit);
+                MenuManager.instance.isShowingSelected = true;
+                MenuManager.instance._tileUnitObject.SetActive(false);
+            }
+            else
+            {
+                if (UnitManager.instance.SelectedHero != null) // ici on sait qu'on clique sur un ennemi
+                {
+                    Debug.Log("attaque un ennemi");
+                    var enemy = (BaseEnemy) OccupiedUnit;
+                    Debug.Log(enemy);
+                    // UnitManager.instance.SelectedHero.Attack() ---> dedans on gère l'animation, les pv perdus etc...
+                    // Pour l'instant, le kill est instant
+                    if (IsInList(this,UnitManager.instance.SelectedHero.RangeList))
+                    {
+                        Debug.Log("isinlist");
+                        Destroy(enemy.gameObject);
+                        MenuManager.instance.UnHighlight(UnitManager.instance.SelectedHero);
+                        UnitManager.instance.SetSelectedHero(null);
+                        UnitManager.instance.Coups += 1;
+                        CombatManager.instance.EnemiesAlive -= 1;
+                    }  
+                }
+            }
+        }
+    }
+*/
 }
