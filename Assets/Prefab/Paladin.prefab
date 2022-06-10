@@ -14,7 +14,7 @@ PrefabInstance:
     - target: {fileID: 6368677614082962177, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: characterHead
       value: 
-      objectReference: {fileID: 21300000, guid: 520faab805b969b488c29b517e2226e4, type: 3}
+      objectReference: {fileID: 21300000, guid: 97c843d8664f4694d884819896044613, type: 3}
     - target: {fileID: 6368677614082962179, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: m_Name
       value: Paladin
@@ -74,10 +74,11 @@ PrefabInstance:
     - target: {fileID: 6680583739145965646, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: headSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 520faab805b969b488c29b517e2226e4, type: 3}
+      objectReference: {fileID: 21300000, guid: 97c843d8664f4694d884819896044613, type: 3}
     - target: {fileID: 6680583739145965646, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: currentHealth
       value: 130
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6368677614082962191, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}

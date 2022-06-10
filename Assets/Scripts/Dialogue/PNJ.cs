@@ -58,7 +58,7 @@ public class PNJ : MonoBehaviour
         {
             questSr.sprite = null;
         } 
-
+        
 
         if (Input.GetKeyDown(KeyCode.E) && canDial)
         {
@@ -91,6 +91,8 @@ public class PNJ : MonoBehaviour
             } 
             else if (quest == null)
             {
+                choice1.SetActive(false);
+                choice2.SetActive(false);
                 StartDialogue(sentences);
             }
         }

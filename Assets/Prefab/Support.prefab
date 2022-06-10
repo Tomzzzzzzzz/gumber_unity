@@ -14,7 +14,7 @@ PrefabInstance:
     - target: {fileID: 6368677614082962177, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: characterHead
       value: 
-      objectReference: {fileID: 21300000, guid: 9cea4a8c101c26c45acb0bb1141ce981, type: 3}
+      objectReference: {fileID: 21300000, guid: 9e37601c9164ffc4fafc7f5f3fb052f5, type: 3}
     - target: {fileID: 6368677614082962179, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: m_Name
       value: Support
@@ -74,10 +74,11 @@ PrefabInstance:
     - target: {fileID: 6680583739145965646, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: headSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9cea4a8c101c26c45acb0bb1141ce981, type: 3}
+      objectReference: {fileID: 21300000, guid: 9e37601c9164ffc4fafc7f5f3fb052f5, type: 3}
     - target: {fileID: 6680583739145965646, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: currentHealth
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6368677614082962191, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}

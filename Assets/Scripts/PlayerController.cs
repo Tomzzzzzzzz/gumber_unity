@@ -113,25 +113,51 @@ public class PlayerController : NetworkBehaviour
 
     private void OnTriggerEnter2D (Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (isLocalPlayer && collision.tag == "Player" &&
+            !IsAlreadyInList(collision.gameObject.GetComponent(typeof(PlayerData)) as PlayerData) &&
+            !IsAlreadyInGroup(collision.gameObject.GetComponent(typeof(PlayerData)) as PlayerData))
         {
+            Debug.Log("Et je rentre en collision avec un autre joueur");
             GameManager.instance.closePlayers.Add(collision.gameObject.GetComponent(typeof(PlayerData)) as PlayerData);
         }
     }
 
     private void OnTriggerExit2D (Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (isLocalPlayer && collision.tag == "Player")
             RemoveFromList(collision.gameObject.GetComponent(typeof(PlayerData)) as PlayerData);
     }
 
     private void RemoveFromList(PlayerData player)
     {
         for (int i = 0; i < GameManager.instance.closePlayers.Count; i++)
-            if (player.id == GameManager.instance.closePlayers[i].id)
+            if (player.pseudo == GameManager.instance.closePlayers[i].pseudo)
             {
                 GameManager.instance.closePlayers.RemoveAt(i);
                 return;
             }
+    }
+
+    private bool IsAlreadyInList(PlayerData player)
+    {
+        for (int i = 0; i < GameManager.instance.closePlayers.Count; i++)
+            if (player.pseudo == GameManager.instance.closePlayers[i].pseudo)
+            {
+                return true;
+            }
+        return false;
+    }
+
+    private bool IsAlreadyInGroup(PlayerData player)
+    {
+        int i = 0;
+        PlayerData[] array = GroupManager.instance.playersInGroup;
+        while (i < 4 && array[i] != null)
+        {
+            if (player.pseudo == array[i].pseudo)
+                return true;
+            i++;
+        }
+        return false;
     }
 }

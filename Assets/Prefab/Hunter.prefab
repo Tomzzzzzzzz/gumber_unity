@@ -14,7 +14,7 @@ PrefabInstance:
     - target: {fileID: 6368677614082962177, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: characterHead
       value: 
-      objectReference: {fileID: 21300000, guid: 089d39ecbb8ab134895127f2ade89d98, type: 3}
+      objectReference: {fileID: 21300000, guid: be0ec6d975866f8479a9e078d14cefa5, type: 3}
     - target: {fileID: 6368677614082962179, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: m_Name
       value: Hunter
@@ -74,7 +74,7 @@ PrefabInstance:
     - target: {fileID: 6680583739145965646, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: headSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 089d39ecbb8ab134895127f2ade89d98, type: 3}
+      objectReference: {fileID: 21300000, guid: be0ec6d975866f8479a9e078d14cefa5, type: 3}
     - target: {fileID: 6680583739145965646, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: currentHealth
       value: 100

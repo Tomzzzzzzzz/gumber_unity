@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6368677614082962189}
   - component: {fileID: 6368677614082962190}
-  - component: {fileID: 6368677614082962191}
   - component: {fileID: 6368677614082962176}
   - component: {fileID: 6680583739145965646}
   - component: {fileID: 6368677614082962177}
@@ -57,20 +56,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -2.5}
   m_Size: {x: 3, y: 4.5}
   m_Direction: 0
---- !u!114 &6368677614082962191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6368677614082962179}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cffb6b49fed25d5458d71b03731fcec7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  map: {fileID: 0}
-  movementSpeed: 5
 --- !u!50 &6368677614082962176
 Rigidbody2D:
   serializedVersion: 4
@@ -109,7 +94,6 @@ MonoBehaviour:
   pseudo: 
   race: 0
   prefab: {fileID: 3779929744512796754, guid: 1091814138fbee240a77731059faba78, type: 3}
-  id: 0
   headSprite: {fileID: 0}
   maxHealth: 0
   currentHealth: 0
@@ -285,4 +269,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 7

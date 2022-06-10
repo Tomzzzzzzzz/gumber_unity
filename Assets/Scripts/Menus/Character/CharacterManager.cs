@@ -36,7 +36,6 @@ public class CharacterManager : MonoBehaviour
     }
     public void PlayGame()
     {
-        Debug.Log($"CM pseudo : {pseudo}");
         SceneManager.LoadScene("Map");
     }
 

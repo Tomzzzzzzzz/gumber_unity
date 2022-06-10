@@ -17,7 +17,7 @@ public class MyNetworkManager : NetworkManager
 
 
     public override void OnStartServer()
-    {
+    {      
         base.OnStartServer();
         Debug.Log("Server started!");
         NetworkServer.RegisterHandler<CreateMMOCharacterMessage>(CustomInstantiate);
@@ -36,10 +36,7 @@ public class MyNetworkManager : NetworkManager
             race = CharacterManager.race,
             pseudo = CharacterManager.pseudo
         };
-        Debug.Log("Avant message");
-        //CustomInstantiate((NetworkConnectionToClient)NetworkClient.connection, characterMessage);
         NetworkClient.Send(characterMessage);
-        Debug.Log("Après message");
     }
 
     public override void OnClientDisconnect()
@@ -50,13 +47,11 @@ public class MyNetworkManager : NetworkManager
     
     void CustomInstantiate(NetworkConnectionToClient conn, CreateMMOCharacterMessage message)
     {
-        Debug.Log("Appel sur CustomInstantiate");
         (string pseudo, string race) = (message.pseudo, message.race);
         switch(race)
         {
             case "Paladin":
             {
-                Debug.Log("Création paladin");
                 GameObject Player = Instantiate(Paladin);
                 PlayerData data = Player.GetComponent<PlayerData>();
                 data.pseudo = pseudo;

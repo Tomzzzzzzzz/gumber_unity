@@ -29,7 +29,7 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < _height; y++)
             {
-                var randomTile = Random.Range(0,6) == 3 ? _waterTile : _grassTile;
+                var randomTile = Random.Range(0,8) == 3 ? _waterTile : _grassTile;
                 var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
 

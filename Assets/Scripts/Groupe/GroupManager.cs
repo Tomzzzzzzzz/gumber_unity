@@ -7,11 +7,16 @@ using Mirror;
 
 public class GroupManager : NetworkBehaviour
 {
-    public List<PlayerData> playersInGroup;
+    public PlayerData[] playersInGroup;
     public static int nbPlayers;
     public GameObject playerInfo, playersToInvite, parentinfo, parentinvite, panelGroup;
     public static GroupManager instance;
     public static bool isShown = false;
+    public Sprite Assassin_h;
+    public Sprite Hunter_h;
+    public Sprite Support_h;
+    public Sprite Paladin_h;
+    public Sprite Mage_h;
     private void Awake()
     {
         instance = this;
@@ -20,8 +25,23 @@ public class GroupManager : NetworkBehaviour
     void Start()
     {
         panelGroup.SetActive(false);
-        nbPlayers = 1;
-        playersInGroup = new List<PlayerData> {PlayerData.instance};
+        if (!isServer)
+        {
+            nbPlayers = 1;
+            playersInGroup = new PlayerData[4];
+            playersInGroup[0] = NetworkClient.localPlayer.gameObject.GetComponent<PlayerData>();
+        }
+        /*
+        if (!isServer)
+        {
+            NetworkIdentity identity = GetComponent<NetworkIdentity>();
+            NetworkIdentity client_id = NetworkClient.localPlayer;
+            Debug.Log("Trying to assign authority");
+            AssignAuthority(identity, client_id);
+            //NetworkClient.localPlayer.gameObject.GetComponent<PlayerData>().
+        }
+        */
+        
     }
 
     // Update is called once per frame
@@ -55,16 +75,48 @@ public class GroupManager : NetworkBehaviour
                 //                 //
                 //  Panel members  //
                 //                 //
-                for (int i = 0; i < playersInGroup.Count; i++)
+                int j = 0;
+                while (j < 4 && playersInGroup[j] != null)
                 {
                     GameObject slot = Instantiate(playerInfo, parentinfo.transform.position, transform.rotation);
                     slot.transform.SetParent(parentinfo.transform);
 
                     TextMeshProUGUI pseudo = slot.transform.Find("Pseudo").GetComponent<TextMeshProUGUI>();
-                    pseudo.text = playersInGroup[i].pseudo;
+                    pseudo.text = playersInGroup[j].pseudo;
 
-                    Sprite head = slot.transform.Find("TeteJoueur").GetComponent<Sprite>();
-                    head = playersInGroup[i].headSprite;
+                    Image tete = slot.transform.Find("TeteJoueur").GetComponent<Image>();
+                    switch (playersInGroup[j].headSprite.name)
+                    {
+                        case "Paladin_h":
+                        {
+                            tete.sprite = Paladin_h;
+                            break;
+                        }
+                        case "assassin_h":
+                        {
+                            tete.sprite = Assassin_h;
+                            break;
+                        }
+                        case "hunter_h":
+                        {
+                            tete.sprite = Hunter_h;
+                            break;
+                        }
+                        case "Support_h":
+                        {
+                            tete.sprite = Support_h;
+                            break;
+                        }
+                        case "Mage_h":
+                        {
+                            tete.sprite = Mage_h;
+                            break;
+                        }
+                    }
+
+                    Sprite head = slot.transform.Find("TeteJoueur").GetComponent<Image>().sprite;
+                    head = playersInGroup[j].headSprite;
+                    j++;
                 }
 
                 //                 //
@@ -78,10 +130,37 @@ public class GroupManager : NetworkBehaviour
                     TextMeshProUGUI pseudo = slot.transform.Find("Pseudo").GetComponent<TextMeshProUGUI>();
                     pseudo.text = GameManager.instance.closePlayers[i].pseudo;
 
-                    Sprite head = slot.transform.Find("TeteJoueur").GetComponent<Sprite>();
-                    head = GameManager.instance.closePlayers[i].headSprite;
+                    slot.GetComponent<RandomInfoID>().id = i;
 
-                    slot.GetComponent<RandomInfoID>().id = GameManager.instance.closePlayers[i].id;
+                    Image tete = slot.transform.Find("TeteJoueur").GetComponent<Image>();
+                    switch (GameManager.instance.closePlayers[i].headSprite.name)
+                    {
+                        case "Paladin_h":
+                        {
+                            tete.sprite = Paladin_h;
+                            break;
+                        }
+                        case "assassin_h":
+                        {
+                            tete.sprite = Assassin_h;
+                            break;
+                        }
+                        case "hunter_h":
+                        {
+                            tete.sprite = Hunter_h;
+                            break;
+                        }
+                        case "Support_h":
+                        {
+                            tete.sprite = Support_h;
+                            break;
+                        }
+                        case "Mage_h":
+                        {
+                            tete.sprite = Mage_h;
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -93,8 +172,19 @@ public class GroupManager : NetworkBehaviour
         isShown = false;
     }
 
-    public void Invite()
+    /*
+    [Command]
+    public void AssignAuthority(NetworkIdentity identity, NetworkIdentity client_id)
     {
+        Debug.Log("Trying to assign authority from mthode");
+        if (!identity.hasAuthority)
+        {
+            identity.RemoveClientAuthority();
+            identity.AssignClientAuthority(client_id.connectionToClient);
+            Debug.Log("Authority assigned");
+        }
 
     }
+    */
+
 }

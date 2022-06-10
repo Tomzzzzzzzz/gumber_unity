@@ -87,11 +87,11 @@ public class UnitManager : MonoBehaviour
         //déplacements --> 4 cases autour
         if (pos.x > 0)
             unit.MovesList.Add(GridManager.instance.GetTileAtPosition(new Vector2(pos.x-1,pos.y)));
-        if (pos.x < GridManager.instance.Width)
+        if (pos.x < GridManager.instance.Width - 1)
             unit.MovesList.Add(GridManager.instance.GetTileAtPosition(new Vector2(pos.x+1,pos.y)));
         if (pos.y > 0)
             unit.MovesList.Add(GridManager.instance.GetTileAtPosition(new Vector2(pos.x,pos.y-1)));
-        if (pos.y < GridManager.instance.Height)
+        if (pos.y < GridManager.instance.Height - 1)
             unit.MovesList.Add(GridManager.instance.GetTileAtPosition(new Vector2(pos.x,pos.y+1)));
 
         (int limitx, int limity) = ((int)(pos.x+unit.Range.x),(int)(pos.y+unit.Range.y));

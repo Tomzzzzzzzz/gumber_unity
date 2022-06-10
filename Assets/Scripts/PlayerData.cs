@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-
+using TMPro;
 public class PlayerData : NetworkBehaviour
 {
+    [SyncVar]
     public string pseudo;
-    public string race;
+    [HideInInspector] public string race;
 
     public GameObject prefab;
-    public uint id;
+
     public static PlayerData instance;
     public Sprite headSprite;
 
@@ -24,7 +25,7 @@ public class PlayerData : NetworkBehaviour
     //[SerializeField]
     [SyncVar(hook = nameof(OnXpChange))]
     public int xp;
-    
+
     void Awake()
     {
         instance = this;
@@ -35,10 +36,10 @@ public class PlayerData : NetworkBehaviour
         if (isLocalPlayer)
         {
             prefab.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
-            Debug.Log("Start PlayerData");
             pseudo = CharacterManager.pseudo;
-            id = NetworkClient.localPlayer.netId;
             race = CharacterManager.race;
+            GroupManager.instance.playersInGroup[0] = this;
+            //transform.Find("InviteCanvas").GetChild()
         }
     }
 
@@ -89,4 +90,46 @@ public class PlayerData : NetworkBehaviour
         NetworkServer.Spawn(mob);
     }
 
+    [Command]
+    public void Invite(NetworkIdentity identity, string pseudo, PlayerData[] playersInGroup)
+    {
+        Debug.Log("Inviting Player...");
+        ReceiveInvitation(identity.connectionToClient,pseudo, playersInGroup);
+    }
+
+    [TargetRpc]
+    public void ReceiveInvitation(NetworkConnection target, string pseudo, PlayerData[] playersInGroup)
+    {
+        Debug.Log("Invitation received");
+        GameObject InvitePanel;
+        InvitePanel = GameObject.Find("/InviteCanvas/Invitation");
+        InvitePanel.transform.position = new Vector3(960,1030,0);
+        InvitePanel.transform.Find("Pseudo").GetComponent<TextMeshProUGUI>().text = pseudo;
+        GameObject.Find("GroupCanvas").GetComponent<GroupManager>().playersInGroup = playersInGroup;
+    }
+
+    [Command]
+    public void AcceptInvitation(NetworkIdentity identity, PlayerData newMember)
+    {
+        Debug.Log("Coucou je suis le serveur et j'invite un joueur");
+        AddPlayerToGroup(identity.connectionToClient, newMember);
+    }
+
+    [TargetRpc]
+    public void AddPlayerToGroup(NetworkConnection target, PlayerData newMember)
+    {
+        Debug.Log("Récupération du membre invité...");
+        int i = 0;
+        PlayerData[] group = GameObject.Find("GroupCanvas").GetComponent<GroupManager>().playersInGroup;
+        while (i < 4 && group[i] != null)
+        {
+            Debug.Log($"Le {i}eme joueur dans le groupe est {group[i].pseudo}");
+            i++;
+        }
+        if (i < 4)
+        {
+            Debug.Log("i < 4");
+            group[i] = newMember;
+        }
+    }
 }

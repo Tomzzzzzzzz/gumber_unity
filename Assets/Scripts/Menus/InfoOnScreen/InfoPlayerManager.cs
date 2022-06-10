@@ -10,7 +10,8 @@ public class InfoPlayerManager : NetworkBehaviour
     public GameObject panel;
     public static InfoPlayerManager instance;
 
-    private PlayerData player; 
+    private PlayerData player;
+
     private void Awake()
     {
         instance = this;
@@ -29,6 +30,5 @@ public class InfoPlayerManager : NetworkBehaviour
     public void GetPlayer()
     {
         player = NetworkClient.localPlayer.gameObject.GetComponent<PlayerData>();
-        if (player != null) { Debug.Log("GetPlayer function succeeded");}
     }
 }

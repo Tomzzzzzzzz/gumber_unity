@@ -15,16 +15,16 @@ MonoBehaviour:
   character:
   - characterName: Paladin
     characterSprite: {fileID: 21300000, guid: 36393bddbef3d474887df4f156136bcc, type: 3}
-    headSprite: {fileID: 21300000, guid: 520faab805b969b488c29b517e2226e4, type: 3}
+    headSprite: {fileID: 21300000, guid: 97c843d8664f4694d884819896044613, type: 3}
   - characterName: Hunter
     characterSprite: {fileID: 21300000, guid: b8c4a6438bc199342a18235cc2d02e53, type: 3}
-    headSprite: {fileID: 21300000, guid: 089d39ecbb8ab134895127f2ade89d98, type: 3}
+    headSprite: {fileID: 21300000, guid: be0ec6d975866f8479a9e078d14cefa5, type: 3}
   - characterName: Assassin
     characterSprite: {fileID: 21300000, guid: d58bf4a3bfaed0d4ebac698c11769847, type: 3}
-    headSprite: {fileID: 21300000, guid: c6c8964f211a9dc42b5c1bcb8f931bdc, type: 3}
+    headSprite: {fileID: 21300000, guid: c58ba5a71ee6e104baaea24c5830bc25, type: 3}
   - characterName: Support
     characterSprite: {fileID: 21300000, guid: a3096d859b5c86e40bf719eedd62ca6a, type: 3}
-    headSprite: {fileID: 21300000, guid: 9cea4a8c101c26c45acb0bb1141ce981, type: 3}
+    headSprite: {fileID: 21300000, guid: 9e37601c9164ffc4fafc7f5f3fb052f5, type: 3}
   - characterName: Mage
     characterSprite: {fileID: 21300000, guid: d05b61bb1775f1546bae4811a505d7a4, type: 3}
-    headSprite: {fileID: 21300000, guid: 669397037fb09dc419d9f73f7507636f, type: 3}
+    headSprite: {fileID: 21300000, guid: 39070a15e14e7244ebd26e34255064e5, type: 3}
