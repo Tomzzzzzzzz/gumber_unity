@@ -94,6 +94,8 @@ public class CombatManager : MonoBehaviour
         UnitManager.instance.Coups = 0;
 
         //tant que IA non implémentée
+        //Si le monstre est contact avec un/plusieurs joueurs, attaque (le + low hp)
+        //Sinon, trouver le joueur le plus proche et se déplacer vers lui et l'attaquer s'il peut
         ChangeState(CombatState.Decide);
     }
     
