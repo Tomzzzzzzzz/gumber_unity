@@ -36,7 +36,7 @@ public class TP_Zone : MonoBehaviour
     }
     private void OnTriggerEnter2D (Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && collision.gameObject.GetComponent<NetworkIdentity>().netId == NetworkClient.localPlayer.netId)
         {
             col = true;
         }
@@ -44,7 +44,7 @@ public class TP_Zone : MonoBehaviour
 
     private void OnTriggerExit2D (Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && collision.gameObject.GetComponent<NetworkIdentity>().netId == NetworkClient.localPlayer.netId)
         {
             col = false;
         }

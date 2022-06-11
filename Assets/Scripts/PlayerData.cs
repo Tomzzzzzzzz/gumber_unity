@@ -9,8 +9,6 @@ public class PlayerData : NetworkBehaviour
     public string pseudo;
     [HideInInspector] public string race;
 
-    public GameObject prefab;
-
     public static PlayerData instance;
     public Sprite headSprite;
 
@@ -35,21 +33,10 @@ public class PlayerData : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            prefab.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
             pseudo = CharacterManager.pseudo;
             race = CharacterManager.race;
             GroupManager.instance.playersInGroup[0] = this;
             //transform.Find("InviteCanvas").GetChild()
-        }
-    }
-
-    void Update()
-    {
-        if (isLocalPlayer && Input.GetKey(KeyCode.Space))
-        {
-            prefab.transform.position = NetworkClient.localPlayer.GetComponent<Transform>().position;
-            Debug.Log("Try to spawn");
-            Test();
         }
     }
 
@@ -81,13 +68,6 @@ public class PlayerData : NetworkBehaviour
     public void SetPseudo(string name)
     {
         pseudo = name;
-    }
-
-    [Command]
-    public void Test()
-    {
-        GameObject mob = Instantiate(prefab);
-        NetworkServer.Spawn(mob);
     }
 
     [Command]
