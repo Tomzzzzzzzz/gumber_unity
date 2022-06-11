@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
 
-public class TP_Zone : MonoBehaviour
+public class TP_Zone : NetworkBehaviour
 {
     public TP_Zone instance;
 
@@ -36,6 +36,7 @@ public class TP_Zone : MonoBehaviour
     }
     private void OnTriggerEnter2D (Collider2D collision)
     {
+        if (isServer) {return;}
         if (collision.tag == "Player" && collision.gameObject.GetComponent<NetworkIdentity>().netId == NetworkClient.localPlayer.netId)
         {
             col = true;
@@ -44,6 +45,7 @@ public class TP_Zone : MonoBehaviour
 
     private void OnTriggerExit2D (Collider2D collision)
     {
+        if (isServer) {return;}
         if (collision.tag == "Player" && collision.gameObject.GetComponent<NetworkIdentity>().netId == NetworkClient.localPlayer.netId)
         {
             col = false;

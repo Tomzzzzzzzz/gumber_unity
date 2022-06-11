@@ -3281,6 +3281,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5276514161515854197, guid: 676d3eecb7af5fa408a6b096d9f80a76, type: 3}
+      propertyPath: sceneId
+      value: 8947123
+      objectReference: {fileID: 0}
     - target: {fileID: 9000791660143519001, guid: 676d3eecb7af5fa408a6b096d9f80a76, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -20769,6 +20773,7 @@ GameObject:
   - component: {fileID: 1744989744}
   - component: {fileID: 1744989746}
   - component: {fileID: 1744989743}
+  - component: {fileID: 1744989747}
   m_Layer: 0
   m_Name: PNJDialogue
   m_TagString: Untagged
@@ -20788,6 +20793,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52dcf66496a00304194c66e1691b5524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   sentences:
   - "Bienvenue l'\xE9lu ! On m'a \xE9norm\xE9ment parl\xE9 de toi.."
   - Tu sais.. depuis l'attaque.. tous les villegeois vivent dans la peur..
@@ -20895,6 +20902,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1744989747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744989742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2191593425
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!4 &1744989748
 Transform:
   m_ObjectHideFlags: 0
@@ -57541,6 +57565,10 @@ PrefabInstance:
     - target: {fileID: 4916161574679399858, guid: 676d3eecb7af5fa408a6b096d9f80a76, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5276514161515854197, guid: 676d3eecb7af5fa408a6b096d9f80a76, type: 3}
+      propertyPath: sceneId
+      value: 3139522253
       objectReference: {fileID: 0}
     - target: {fileID: 9000791660143519001, guid: 676d3eecb7af5fa408a6b096d9f80a76, type: 3}
       propertyPath: m_RootOrder

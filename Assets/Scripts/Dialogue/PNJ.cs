@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using Mirror;
-public class PNJ : MonoBehaviour
+public class PNJ : NetworkBehaviour
 {
     [SerializeField]
     string[] sentences;
@@ -170,6 +170,7 @@ public class PNJ : MonoBehaviour
 
     private void OnTriggerEnter2D (Collider2D collision)
     {
+        if (isServer) {return;}
         if (collision.tag == "Player" && collision.gameObject.GetComponent<NetworkIdentity>().netId == NetworkClient.localPlayer.netId)
         {
             canDial = true;
@@ -178,6 +179,7 @@ public class PNJ : MonoBehaviour
 
     private void OnTriggerExit2D (Collider2D collision)
     {
+        if (isServer) {return;}
         if (collision.tag == "Player" && collision.gameObject.GetComponent<NetworkIdentity>().netId == NetworkClient.localPlayer.netId)
         {
             canDial = false;
