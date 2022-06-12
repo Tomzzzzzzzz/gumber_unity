@@ -18,7 +18,7 @@ public class PickUpItem : MonoBehaviour
                 }
             }
 
-            InventoryManager.instance.inventory.Add(item);
+            //InventoryManager.instance.inventory.Add(item);
             Destroy(gameObject);
         }
     }

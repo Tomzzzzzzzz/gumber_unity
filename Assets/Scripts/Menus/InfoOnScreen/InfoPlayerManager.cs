@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 
-public class InfoPlayerManager : NetworkBehaviour
+public class InfoPlayerManager : MonoBehaviour
 {
     public Text hp, level;
     public GameObject panel;
@@ -14,7 +14,13 @@ public class InfoPlayerManager : NetworkBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance != null && instance != this)
+            Destroy(this.gameObject);
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
     }
     
     // Update is called once per frame
@@ -23,7 +29,7 @@ public class InfoPlayerManager : NetworkBehaviour
         if (player != null)
         {
             level.text = (player.xp / 100).ToString();
-            hp.text = player.currentHealth.ToString();
+            hp.text = $"{player.currentHealth}/{player.maxHealth}";
         }
     }
 

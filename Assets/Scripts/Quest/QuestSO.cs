@@ -22,5 +22,10 @@ public class QuestSO : ScriptableObject
     }
 
     public Statut statut;
+
+    void Start()
+    {
+        statut = Statut.none;
+    }
     
 }

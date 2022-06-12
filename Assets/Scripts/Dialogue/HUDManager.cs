@@ -9,7 +9,7 @@ public class HUDManager : MonoBehaviour
     public static HUDManager instance;
 
     public GameObject dialogueHolder, continueButton, choice1, choice2;
-    public TextMeshProUGUI nameDisplay, textDisplay, moneyText;
+    public TextMeshProUGUI nameDisplay, textDisplay;
 
 
     private void Awake()

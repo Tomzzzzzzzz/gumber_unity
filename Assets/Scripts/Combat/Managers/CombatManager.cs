@@ -3,19 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System.Linq;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager instance;
     public CombatState state;
     public static event Action<CombatState> OnCombatStateChanged;
     [HideInInspector] public int EnemiesAlive;
+    [HideInInspector] public PlayerData player;
+    public Sprite sprite;
+    public GameObject pseudopanel;
     [HideInInspector] private bool isEnded;
+    [HideInInspector] private bool isWaiting;
     [HideInInspector] private float TimeCounter;
     void Awake()
     {
         instance = this;
         EnemiesAlive = 1; //pour les tests
         isEnded = false;
+        isWaiting = false;
     }
 
     private void Start()
@@ -26,13 +33,26 @@ public class CombatManager : MonoBehaviour
 
     private void Update()
     {
-        if (isEnded)
+        if (isWaiting)
         {
             if (TimeCounter >= 3f)
             {
-                TimeCounter = 0f;
-                isEnded = false;
-                SceneManager.LoadScene(GameManager.instance.previousZone);
+                if (isEnded)
+                {
+                    TimeCounter = 0f;
+                    isEnded = false;
+                    player.GetComponentInParent<PlayerController>().enabled = true;
+                    SceneManager.LoadScene(GameManager.instance.previousZone);
+                }
+                else
+                {
+                    TimeCounter = 0f;
+                    isEnded = true;
+                    Debug.Log("ici ça win de l'xp");
+                    MenuManager.instance._victory.SetActive(false);
+                    MenuManager.instance._rec.SetActive(true);
+                    //si le joueur gagne, lui donner de l'xp
+                }
             }
             else
             {
@@ -94,8 +114,10 @@ public class CombatManager : MonoBehaviour
         UnitManager.instance.Coups = 0;
 
         //tant que IA non implémentée
+
         //Si le monstre est contact avec un/plusieurs joueurs, attaque (le + low hp)
         //Sinon, trouver le joueur le plus proche et se déplacer vers lui et l'attaquer s'il peut
+        
         ChangeState(CombatState.Decide);
     }
     
@@ -126,13 +148,19 @@ public class CombatManager : MonoBehaviour
     
     private void HandleVictory()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerData>();
+        sprite = player.GetComponentInParent<SpriteRenderer>().sprite;
+        TextMeshProUGUI pseudo = pseudopanel.GetComponent<TextMeshProUGUI>();
+        int nbxp = (UnityEngine.Random.Range(80,130));
+        pseudo.text = player.pseudo + " a gagné " + nbxp.ToString() + " xp !";
+        player.AddXp(nbxp);
         foreach (GameObject text in MenuManager.instance.InGameInfo)
         {
             text.SetActive(false);
         }
         Debug.Log("ici ça win");
-        MenuManager.instance._victory.SetActive(true);
-        isEnded = true;
+        MenuManager.instance._victory.SetActive(true); 
+        isWaiting = true;
     }
     
     private void HandleLose()

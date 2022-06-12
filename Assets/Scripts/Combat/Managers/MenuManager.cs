@@ -10,6 +10,7 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] public GameObject _selectedHeroObject, _tileObject, _tileUnitObject, _range, _moves;
     [SerializeField] public GameObject _victory;
+    [SerializeField] public GameObject _rec;
 
     [HideInInspector] public List<GameObject> InGameInfo;
     [HideInInspector] public bool isShowingSelected;

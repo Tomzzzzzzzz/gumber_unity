@@ -16,21 +16,14 @@ public class TP_Zone : NetworkBehaviour
 
     void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
+        instance = this;
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && col)
         {
             GameManager.instance.previousZone = actualZone;
+            NetworkClient.localPlayer.gameObject.GetComponent<PlayerController>().enabled = false;
             SceneManager.LoadScene(nextZone);
         }
     }

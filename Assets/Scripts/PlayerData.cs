@@ -22,7 +22,7 @@ public class PlayerData : NetworkBehaviour
 
     //[SerializeField]
     [SyncVar(hook = nameof(OnXpChange))]
-    public int xp;
+    public int xp = 100;
 
     void Awake()
     {
@@ -61,7 +61,15 @@ public class PlayerData : NetworkBehaviour
     [Command]
     public void AddXp(int nb)
     {
+        int temp = (xp % 100 + nb) / 100;
+        SetMaxHealth(15*temp);
         xp += nb;
+    }
+    public void SetMaxHealth(int nb)
+    {
+        if (nb == 0) return;
+        maxHealth += nb;
+        currentHealth = maxHealth;
     }
 
     [Command]
@@ -111,5 +119,10 @@ public class PlayerData : NetworkBehaviour
             Debug.Log("i < 4");
             group[i] = newMember;
         }
+    }
+
+    private void RefreshTarget()
+    {
+        InfoPlayerManager.instance.GetPlayer();
     }
 }

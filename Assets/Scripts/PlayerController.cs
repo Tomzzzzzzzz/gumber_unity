@@ -12,7 +12,7 @@ public class PlayerController : NetworkBehaviour
     [Header("Stat")]
     [SerializeField]
     float moveSpeed;
-    private float litmitSpeed = 0.7f;
+    //private float litmitSpeed = 0.7f;
     public static PlayerController instance;
     public CharacterDatabase characterDB;
     public Sprite artworkSprite;

@@ -75,7 +75,7 @@ public class PNJ : NetworkBehaviour
                 StartDialogue(quest.completeSentence);
                 quest.statut = QuestSO.Statut.complete;
 
-                //PlayerController.instance.money += quest.goldToGive;  //récompense quête
+                PlayerData.instance.AddXp(200);  //récompense quête
 
                 foreach (var item in QuestManager.instance.allQuest) //détruire objet quête 
                 {

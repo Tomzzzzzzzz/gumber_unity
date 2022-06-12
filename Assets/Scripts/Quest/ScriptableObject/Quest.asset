@@ -27,5 +27,5 @@ MonoBehaviour:
   objectTofind: Ennemi
   actualAmount: 0
   amountToFind: 1
-  goldToGive: 100
+  goldToGive: 200
   statut: 0

@@ -93,11 +93,10 @@ MonoBehaviour:
   syncInterval: 0.1
   pseudo: 
   race: 0
-  prefab: {fileID: 3779929744512796754, guid: 1091814138fbee240a77731059faba78, type: 3}
   headSprite: {fileID: 0}
   maxHealth: 0
   currentHealth: 0
-  xp: 0
+  xp: 100
 --- !u!114 &6368677614082962177
 MonoBehaviour:
   m_ObjectHideFlags: 0

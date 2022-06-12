@@ -20,11 +20,11 @@ MonoBehaviour:
   InprogressSentence:
   - "Je crois les avoir perdu \xE0 c\xF4t\xE9 du chateau.."
   completeSentence:
-  - "Merci brave homme, partageons ces pi\xE8ces ! Voici 50 golds."
+  - Merci brave homme, prenez ces fioles d'xp, encore merci!
   afterQuestSentence:
   - Merci infiniment.
   objectTofind: Coin
   actualAmount: 0
   amountToFind: 1
-  goldToGive: 50
+  goldToGive: 200
   statut: 0
