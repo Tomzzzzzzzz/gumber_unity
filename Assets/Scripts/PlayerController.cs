@@ -20,6 +20,7 @@ public class PlayerController : NetworkBehaviour
     
     [HideInInspector] public SpriteRenderer Renderer;
     private int selectedOption = 0;
+    public bool disabled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,10 @@ public class PlayerController : NetworkBehaviour
             */
             InfoPlayerManager.instance.GetPlayer();
             InfoPlayerManager.instance.panel.SetActive(true);
+            TP_donjon.instance.playerController = this;
+            TP_ville.instance.playerController = this;
+            TP_ville.instance.player = gameObject;
+            TP_donjon.instance.player = gameObject;
         }
         else
         {
@@ -54,17 +59,21 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isLocalPlayer && this != null)
+        if (!disabled)
         {
-            Camera.main.GetComponent<CameraFollow>().SetTarget(gameObject.transform);
-            instance = this;
-            DontDestroyOnLoad(this);
+            if(isLocalPlayer && this != null)
+            {
+                Camera.main.GetComponent<CameraFollow>().SetTarget(gameObject.transform);
+                instance = this;
+                DontDestroyOnLoad(this);
+            }
         }
+        
     }
 
     private void FixedUpdate()
     {
-        if (!hasAuthority)
+        if (!hasAuthority || disabled)
         {
             return;
         }

@@ -23,13 +23,13 @@ public class TP_Zone : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.E) && col)
         {
             GameManager.instance.previousZone = actualZone;
-            NetworkClient.localPlayer.gameObject.GetComponent<PlayerController>().enabled = false;
+            NetworkClient.localPlayer.gameObject.GetComponent<PlayerController>().disabled = true;
             SceneManager.LoadScene(nextZone);
         }
     }
     private void OnTriggerEnter2D (Collider2D collision)
     {
-        if (isServer) {return;}
+        if (isServer) return;
         if (collision.tag == "Player" && collision.gameObject.GetComponent<NetworkIdentity>().netId == NetworkClient.localPlayer.netId)
         {
             col = true;
@@ -38,7 +38,7 @@ public class TP_Zone : NetworkBehaviour
 
     private void OnTriggerExit2D (Collider2D collision)
     {
-        if (isServer) {return;}
+        if (isServer) return;
         if (collision.tag == "Player" && collision.gameObject.GetComponent<NetworkIdentity>().netId == NetworkClient.localPlayer.netId)
         {
             col = false;

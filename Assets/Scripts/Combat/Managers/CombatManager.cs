@@ -41,7 +41,7 @@ public class CombatManager : MonoBehaviour
                 {
                     TimeCounter = 0f;
                     isEnded = false;
-                    player.GetComponentInParent<PlayerController>().enabled = true;
+                    player.GetComponentInParent<PlayerController>().disabled = false;
                     SceneManager.LoadScene(GameManager.instance.previousZone);
                 }
                 else

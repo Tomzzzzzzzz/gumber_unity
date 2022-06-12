@@ -10989,7 +10989,7 @@ MonoBehaviour:
   _grassTile: {fileID: -4752253259054357286, guid: 768d06f2e327a724ab013e411a7e43d8, type: 3}
   _waterTile: {fileID: 8505044441141099957, guid: b58a0dca96a72dc4dbc7dd21428f618c, type: 3}
   _cam: {fileID: 406141030}
-  enemySprite: {fileID: 21300000, guid: b3ec1995ae86c7c488b7a6fad9199196, type: 3}
+  enemySprite: {fileID: 21300000, guid: 2b4d88f21b7d0d341912f49bed6ed0f3, type: 3}
   playerSprite: {fileID: 21300000, guid: 10d5c93dc5cbeae448d8c38663edbfa9, type: 3}
 --- !u!4 &2106911623
 Transform:
