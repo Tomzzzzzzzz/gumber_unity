@@ -68,6 +68,11 @@ public class PlayerController : NetworkBehaviour
                 Camera.main.GetComponent<CameraFollow>().SetTarget(gameObject.transform);
                 instance = this;
                 DontDestroyOnLoad(this);
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    GetComponent<Animator>().Play("Attack");
+                    
+                }
             }
         }
         
