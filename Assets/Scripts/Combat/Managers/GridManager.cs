@@ -17,7 +17,7 @@ public class GridManager : MonoBehaviour
     public int Width => _width;
     public int Height => _height;
     public Hero1 hero;
-    private Dictionary<Vector2, Tile> _tiles;
+    public Dictionary<Vector2, Tile> _tiles;
     private void Awake()
     {
         instance = this;
@@ -30,6 +30,7 @@ public class GridManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.01f);
         hero.sprite = NetworkClient.localPlayer.gameObject.GetComponent<PlayerData>().combatSprite;
+        hero.hp = NetworkClient.localPlayer.gameObject.GetComponent<PlayerData>().maxHealth;
     }
     public void GenerateGrid()
     {

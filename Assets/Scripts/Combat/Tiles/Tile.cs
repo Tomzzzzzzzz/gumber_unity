@@ -25,13 +25,18 @@ public abstract class Tile : MonoBehaviour
     {
         if (PauseMenu.GameIsPaused) return;
         _highlight.SetActive(true);
-         MenuManager.instance.ShowTileInfo(this);
+        MenuManager.instance.ShowTileInfo(this);
+        if (OccupiedUnit != null && OccupiedUnit.faction == Faction.Enemy)
+        {
+            UnitManager.instance.panel_hp.SetActive(true);
+        }
     }
     
     void OnMouseExit()
     {
         _highlight.SetActive(false);
         MenuManager.instance.ShowTileInfo(null);
+        UnitManager.instance.panel_hp.SetActive(false);
     }
 
     void OnMouseDown() // Dans cette fonction qu'on peut gérer l'affichage de la portée des coups par exemple
@@ -59,11 +64,10 @@ public abstract class Tile : MonoBehaviour
                     if (IsInList(this,UnitManager.instance.SelectedHero.RangeList))
                     {
                         Debug.Log("isinlist");
-                        Destroy(enemy.gameObject);
                         MenuManager.instance.UnHighlight(UnitManager.instance.SelectedHero);
+                        UnitManager.instance.Attack(UnitManager.instance.SelectedHero, enemy); // Appel sur l'attaque lorsque joueur clique
                         UnitManager.instance.SetSelectedHero(null);
                         UnitManager.instance.Coups += 1;
-                        CombatManager.instance.EnemiesAlive -= 1;
                     }  
                 }
             }

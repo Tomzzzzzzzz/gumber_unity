@@ -5,12 +5,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
+using Mirror;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager instance;
     public CombatState state;
     public static event Action<CombatState> OnCombatStateChanged;
-    [HideInInspector] public int EnemiesAlive;
+    [HideInInspector] public int EnemiesAlive, HeroesAlive;
     [HideInInspector] public PlayerData player;
     public Sprite sprite;
     public GameObject pseudopanel;
@@ -18,11 +19,14 @@ public class CombatManager : MonoBehaviour
     [HideInInspector] private bool isWaiting;
     [HideInInspector] private float TimeCounter;
 
+    [HideInInspector] private bool IAwait;
+    [HideInInspector] private float IAwaitCount;
     public Enemy1 enemy;
     void Awake()
     {
         instance = this;
         EnemiesAlive = 1; //pour les tests
+        HeroesAlive = 1;
         isEnded = false;
         isWaiting = false;
     }
@@ -35,15 +39,29 @@ public class CombatManager : MonoBehaviour
 
     private void Update()
     {
+        if (IAwait)
+        {
+            if (IAwaitCount >= 2f)
+            {
+                IAwait = false;
+                IAwaitCount = 0f;
+                HandleEnemiesTurn();
+            }
+            else
+            {
+                IAwaitCount += Time.deltaTime;
+            }
+        }
         if (isWaiting)
         {
             if (TimeCounter >= 3f)
             {
-                if (isEnded)
+                if (isEnded || state == CombatState.Lose)
                 {
                     TimeCounter = 0f;
                     isEnded = false;
-                    player.GetComponent<PlayerController>().disabled = false;
+                    NetworkClient.localPlayer.GetComponent<PlayerController>().disabled = false;
+                    NetworkClient.localPlayer.GetComponent<PlayerData>().currentHealth = NetworkClient.localPlayer.GetComponent<PlayerData>().maxHealth;
                     SceneManager.LoadScene(GameManager.instance.previousZone);
                 }
                 else
@@ -82,7 +100,8 @@ public class CombatManager : MonoBehaviour
                 HandleHeroesTurn();
                 break;
             case CombatState.EnemiesTurn:
-                HandleEnemiesTurn();
+                //IAwait = true;
+                HandleEnemiesTurn();//à remettre si on ne veut plus attendre => supprimer IAwait
                 break;
             case CombatState.Decide:
                 HandleDecide();
@@ -116,40 +135,48 @@ public class CombatManager : MonoBehaviour
         UnitManager.instance.Coups = 0;
 
         //tant que IA non implémentée
-
-        //Si le monstre est contact avec un/plusieurs joueurs, attaque (le + low hp)
-        //Sinon, trouver le joueur le plus proche et se déplacer vers lui et l'attaquer s'il peut
-        
-        ChangeState(CombatState.Decide);
-    }
-    
-    private void HandleDecide() //après chaque tour, vérifie si la partie est terminée ou non
-    {
-        if (EnemiesAlive != 0)
+        UnitManager.instance.GetAvailableTiles(enemy);
+        Tile possible_attack = UnitManager.instance.CanAttack(enemy);
+        if (possible_attack != null)
         {
-            ChangeState(CombatState.HeroesTurn);
-            return;
+            Debug.Log("IA : Attaque possible");
+            UnitManager.instance.Attack(enemy, possible_attack.OccupiedUnit);
+            UnitManager.instance.Coups += 1;
         }
         else
         {
-
+            Debug.Log("IA : Essaie de se déplacer");
+            UnitManager.instance.MoveEnemy(enemy);
+            UnitManager.instance.Coups += 1;
+        }
+        //Si le monstre est contact avec un/plusieurs joueurs, attaque (le + low hp)
+        //Sinon, trouver le joueur le plus proche et se déplacer vers lui et l'attaquer s'il peut
+        ChangeState(CombatState.Decide);
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2f);
+    }
+    private void HandleDecide() //après chaque tour, vérifie si la partie est terminée ou non
+    {
+        if (EnemiesAlive == 0)
+        {
             ChangeState(CombatState.Victory);
-            /*
-            if (true)
-            {
-                ChangeState(CombatState.Victory);
-                return;
-            }
-            else
-            {
-                ChangeState(CombatState.Lose);
-                return;
-            }*/
+        }
+        else if (HeroesAlive == 0)
+        {
+            ChangeState(CombatState.Lose);
+        }
+        else
+        {
+            Debug.Log($"Enemies alive = {EnemiesAlive}");
+            ChangeState(CombatState.HeroesTurn);
         }
     }
     
-    private void HandleVictory()
+    public void HandleVictory()
     {
+        Debug.Log("oui oui victoire");
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerData>();
         sprite = player.GetComponentInParent<SpriteRenderer>().sprite;
         TextMeshProUGUI pseudo = pseudopanel.GetComponent<TextMeshProUGUI>();
@@ -165,9 +192,15 @@ public class CombatManager : MonoBehaviour
         isWaiting = true;
     }
     
-    private void HandleLose()
+    public void HandleLose()
     {
-        throw new NotImplementedException();
+        Debug.Log("oui oui défaite");
+        foreach (GameObject text in MenuManager.instance.InGameInfo)
+        {
+            text.SetActive(false);
+        }
+        MenuManager.instance._lose.SetActive(true);
+        isWaiting = true;
     }
 }
 

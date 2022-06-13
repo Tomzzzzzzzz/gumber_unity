@@ -8,6 +8,7 @@ public class Enemy1 : BaseEnemy
     void Start()
     {
         CombatManager.instance.enemy = this;
+        hp = 100;
     }
 
     // Update is called once per frame

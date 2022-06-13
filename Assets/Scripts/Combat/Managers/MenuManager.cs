@@ -9,7 +9,7 @@ public class MenuManager : MonoBehaviour
     public static MenuManager instance;
 
     [SerializeField] public GameObject _selectedHeroObject, _tileObject, _tileUnitObject, _range, _moves;
-    [SerializeField] public GameObject _victory;
+    [SerializeField] public GameObject _victory, _lose;
     [SerializeField] public GameObject _rec;
 
     [HideInInspector] public List<GameObject> InGameInfo;

@@ -10,4 +10,7 @@ public class BaseUnit : MonoBehaviour
     [SerializeField] public Vector2 Range;
     [HideInInspector] public List<Tile> MovesList;
     [HideInInspector] public List<Tile> RangeList;
+
+    public int hp;
+    public int damage = 50;
 }
