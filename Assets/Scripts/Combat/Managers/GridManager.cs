@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using Mirror;
+using TMPro;
 public class GridManager : MonoBehaviour
 {
     public static GridManager instance;
@@ -10,18 +11,26 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int _width, _height;
     [SerializeField] private Tile _grassTile, _waterTile;
     [SerializeField] private Transform _cam;
-    [SerializeField] private Sprite enemySprite;
+    [SerializeField] private Sprite mouton;
+    [SerializeField] private Sprite minotor;
     [SerializeField] private Sprite playerSprite;
     public int Width => _width;
     public int Height => _height;
-
+    public Hero1 hero;
     private Dictionary<Vector2, Tile> _tiles;
-
     private void Awake()
     {
         instance = this;
     }
-
+    private void Start()
+    {
+        StartCoroutine("WaitToSetSprite");
+    }
+    IEnumerator WaitToSetSprite()
+    {
+        yield return new WaitForSeconds(0.01f);
+        hero.sprite = NetworkClient.localPlayer.gameObject.GetComponent<PlayerData>().combatSprite;
+    }
     public void GenerateGrid()
     {
         _tiles = new Dictionary<Vector2, Tile>();

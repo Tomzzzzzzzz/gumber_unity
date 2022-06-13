@@ -9,6 +9,7 @@ public class CharacterManager : MonoBehaviour
     public CharacterDatabase characterDB;
     public Text nameText;
     public Sprite headSprite;
+    public Sprite combatSprite;
     public SpriteRenderer artworkSprite;
     public Text Text;
 
@@ -70,6 +71,7 @@ public class CharacterManager : MonoBehaviour
         artworkSprite.sprite = character.characterSprite;
         nameText.text = character.characterName;
         race = character.characterName;
+        combatSprite = character.combatSprite;
     }
 
     private void Load()

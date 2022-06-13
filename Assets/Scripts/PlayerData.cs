@@ -11,6 +11,7 @@ public class PlayerData : NetworkBehaviour
 
     public static PlayerData instance;
     public Sprite headSprite;
+    public Sprite combatSprite;
 
     [SyncVar(hook = nameof(OnMaxHealthChange))]
     //[SerializeField]
@@ -23,7 +24,7 @@ public class PlayerData : NetworkBehaviour
     //[SerializeField]
     [SyncVar(hook = nameof(OnXpChange))]
     public int xp = 100;
-
+    
     void Awake()
     {
         instance = this;

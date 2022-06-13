@@ -96,6 +96,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: be0ec6d975866f8479a9e078d14cefa5, type: 3}
     - target: {fileID: 6680583739145965646, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
+      propertyPath: combatSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a357d648da54c84698cd6b00b9641ea, type: 3}
+    - target: {fileID: 6680583739145965646, guid: a2477461ae74e6d45b769ee4e8ae6c0f, type: 3}
       propertyPath: currentHealth
       value: 100
       objectReference: {fileID: 0}

@@ -17,6 +17,8 @@ public class CombatManager : MonoBehaviour
     [HideInInspector] private bool isEnded;
     [HideInInspector] private bool isWaiting;
     [HideInInspector] private float TimeCounter;
+
+    public Enemy1 enemy;
     void Awake()
     {
         instance = this;
@@ -41,7 +43,7 @@ public class CombatManager : MonoBehaviour
                 {
                     TimeCounter = 0f;
                     isEnded = false;
-                    player.GetComponentInParent<PlayerController>().disabled = false;
+                    player.GetComponent<PlayerController>().disabled = false;
                     SceneManager.LoadScene(GameManager.instance.previousZone);
                 }
                 else

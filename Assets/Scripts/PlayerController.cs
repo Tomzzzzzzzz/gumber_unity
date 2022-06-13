@@ -22,6 +22,8 @@ public class PlayerController : NetworkBehaviour
     private int selectedOption = 0;
     public bool disabled = false;
 
+    public bool loadEntities = false;
+
     // Start is called before the first frame update
     void Start()
     {

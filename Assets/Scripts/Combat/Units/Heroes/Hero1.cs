@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class Hero1 : BaseHero
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] SpriteRenderer spriteRenderer;
+    public Sprite sprite;
+    public bool stopUpdate = false;
 
-    // Update is called once per frame
+    void Awake()
+    {
+        GridManager.instance.hero = this;
+    }
     void Update()
     {
-        
+        if (!stopUpdate)
+        {
+            if (sprite != null)
+            {
+                spriteRenderer.sprite = sprite;
+                stopUpdate = true;
+            }
+        }
     }
 }

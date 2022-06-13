@@ -7,7 +7,7 @@ public class Enemy1 : BaseEnemy
     // Start is called before the first frame update
     void Start()
     {
-        
+        CombatManager.instance.enemy = this;
     }
 
     // Update is called once per frame

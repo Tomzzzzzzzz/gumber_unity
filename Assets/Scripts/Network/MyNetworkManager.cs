@@ -14,8 +14,7 @@ public class MyNetworkManager : NetworkManager
     public GameObject Paladin;
     public GameObject Mage;
     public GameObject Hunter;
-
-
+    
     public override void OnStartServer()
     {      
         base.OnStartServer();
@@ -103,5 +102,5 @@ public class MyNetworkManager : NetworkManager
 
         }
     }
-
+    
 }
